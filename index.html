@@ -454,6 +454,20 @@
             messageLog.scrollTop = messageLog.scrollHeight;
         }
         
+        // Fonction pour calculer les dégâts selon la nouvelle formule
+        function calculateDamage(attack, defense) {
+            const statUsed = myHero.powerstats[attack.superPower.toLowerCase()];
+            const baseDamage = statUsed * attack.modifier;
+            const defenseReduction = defense ? defense.reduction : 0;
+            const finalDamage = Math.max(0, baseDamage - defenseReduction);
+            
+            return {
+                baseDamage: baseDamage,
+                defenseReduction: defenseReduction,
+                finalDamage: finalDamage
+            };
+        }
+        
         // Fonction pour mettre à jour l'interface en fonction du rôle
         function updateInterface() {
             if (myRole === 'attacker') {
@@ -502,8 +516,18 @@
                 button.disabled = myRole !== 'attacker';
                 
                 button.addEventListener('click', () => {
-                    socket.emit('attack', { attackName: attack.name });
-                    addMessage(`Vous utilisez ${attack.name} !`, 'attack');
+                    // Calcul des dégâts de base (sans défense)
+                    const damageInfo = calculateDamage(attack, null);
+                    
+                    socket.emit('attack', { 
+                        attackName: attack.name,
+                        baseDamage: damageInfo.baseDamage,
+                        potentialDamage: damageInfo.finalDamage,
+                        statUsed: attack.superPower
+                    });
+                    
+                    addMessage(`Vous utilisez ${attack.name} (${attack.superPower}) !`, 'attack');
+                    addMessage(`Dégâts potentiels: ${damageInfo.baseDamage} (${myHero.powerstats[attack.superPower.toLowerCase()]} × ${attack.modifier})`, 'damage');
                     
                     // Désactiver tous les boutons d'attaque après l'avoir utilisé
                     Array.from(attackButtons.querySelectorAll('button')).forEach(btn => {
@@ -522,12 +546,19 @@
                 button.disabled = myRole !== 'defender' || !incomingAttack;
                 
                 button.addEventListener('click', () => {
+                    // Trouver l'attaque correspondante dans notre liste
+                    const attackUsed = attacks.find(a => a.name === incomingAttack.attackName);
+                    
                     socket.emit('defend', { 
                         defenseName: defense.name,
-                        incomingDamage: incomingAttack.damage
+                        incomingAttack: incomingAttack.attackName,
+                        baseDamage: incomingAttack.baseDamage,
+                        defenseReduction: defense.reduction,
+                        statUsed: attackUsed.superPower
                     });
                     
                     addMessage(`Vous utilisez ${defense.name} contre ${incomingAttack.attackName} !`, 'defense');
+                    addMessage(`Réduction de dégâts: ${defense.reduction} points`, 'damage');
                     
                     // Désactiver tous les boutons de défense après l'avoir utilisé
                     Array.from(defenseButtons.querySelectorAll('button')).forEach(btn => {
@@ -550,7 +581,7 @@
             defenses = data.defenses;
             
             // Mettre à jour l'interface avec les informations du héros
-            yourHeroName.textContent = `Attaquant: ${myHero.name}`; ;
+            yourHeroName.textContent = `Attaquant: ${myHero.name}`;
             updateStatBars(myHero, 'your');
             
             // Générer les boutons d'attaque et de défense
@@ -580,7 +611,7 @@
             opponentHero = data.opponent.hero;
             
             // Mettre à jour l'interface avec les informations de l'adversaire
-            opponentHeroName.textContent = `Adversaire: ${ opponentHero.name}`;
+            opponentHeroName.textContent = `Adversaire: ${opponentHero.name}`;
             updateStatBars(opponentHero, 'opponent');
             updateHealthBar(data.opponent.hp, 1000, opponentHealthValue, opponentHealthFill);
             
@@ -611,7 +642,8 @@
         socket.on('incoming-attack', (data) => {
             incomingAttack = data;
             
-            addMessage(`${data.attacker} vous attaque avec ${data.attackName} pour ${data.damage} points de dégâts potentiels !`, 'attack');
+            addMessage(`${data.attacker} vous attaque avec ${data.attackName} (${data.statUsed}) !`, 'attack');
+            addMessage(`Dégâts de base: ${data.baseDamage} (${data.statUsed} × modificateur)`, 'damage');
             addMessage('Choisissez une défense !', 'system');
             
             // Activer les boutons de défense
@@ -622,7 +654,8 @@
         
         // Confirmation d'envoi d'attaque
         socket.on('attack-sent', (data) => {
-            addMessage(`Vous avez attaqué avec ${data.attackName} pour ${data.damage} points de dégâts potentiels.`, 'attack');
+            addMessage(`Vous avez attaqué avec ${data.attackName} (${data.statUsed})`, 'attack');
+            addMessage(`Dégâts potentiels: ${data.potentialDamage} points`, 'damage');
             addMessage('En attente de la défense de l\'adversaire...', 'system');
         });
         
@@ -631,12 +664,14 @@
             if (data.yourHp !== undefined) {
                 // Mise à jour pour le défenseur
                 updateHealthBar(data.yourHp, 1000, yourHealthValue, yourHealthFill);
-                addMessage(`Vous avez utilisé ${data.defenseName} et réduit ${data.damageReduction} points de dégâts.`, 'defense');
+                addMessage(`Vous avez utilisé ${data.defenseName} et réduit ${data.defenseReduction} points de dégâts.`, 'defense');
+                addMessage(`Dégâts finaux: ${data.finalDamage} (${data.baseDamage} - ${data.defenseReduction})`, 'damage');
                 addMessage(`Vous subissez ${data.finalDamage} points de dégâts. Il vous reste ${data.yourHp} PV.`, 'system');
             } else {
                 // Mise à jour pour l'attaquant
                 updateHealthBar(data.defenderHp, 1000, opponentHealthValue, opponentHealthFill);
-                addMessage(`L'adversaire a utilisé ${data.defenseName} et réduit ${data.damageReduction} points de dégâts.`, 'defense');
+                addMessage(`L'adversaire a utilisé ${data.defenseName} et réduit ${data.defenseReduction} points de dégâts.`, 'defense');
+                addMessage(`Dégâts finaux: ${data.finalDamage} (${data.baseDamage} - ${data.defenseReduction})`, 'damage');
                 addMessage(`Votre attaque inflige ${data.finalDamage} points de dégâts. Il reste ${data.defenderHp} PV à l'adversaire.`, 'system');
             }
         });
@@ -683,7 +718,6 @@
         
         // Bouton pour rejouer
         playAgainBtn.addEventListener('click', () => {
-            // Rafraîchir la page
             window.location.reload();
         });
     </script>
