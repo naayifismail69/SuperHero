@@ -230,7 +230,7 @@
         <div id="waiting-screen">
             <h2>Bienvenue dans le Tournoi des Super-Héros</h2>
             <p>Préparez-vous à affronter les plus grands héros dans des duels stratégiques !</p>
-            <p>Chaque héros commence avec 1000 PV. Choisissez vos attaques et défenses stratégiquement.</p>
+            <p>Chaque héro commence avec 1000 PV. Choisissez vos attaques et défenses stratégiquement.</p>
             <button id="start-button">Trouver un adversaire</button>
         </div>
         
@@ -438,7 +438,7 @@
             }
             
             // Événement de clic sur le bouton de démarrage
-            startButton.addEventListener('click', () => {
+            startButton.addEventListener('click', () =>git {
                 startButton.disabled = true;
                 startButton.textContent = 'Recherche en cours...';
                 socket.emit('findOpponent');
