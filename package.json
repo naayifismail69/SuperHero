@@ -1,0 +1,17 @@
+{
+  "name": "tournoi-super-heros",
+  "version": "1.0.0",
+  "description": "Jeu de combat de super-héros en temps réel",
+  "main": "serveur.js",
+  "scripts": {
+    "start": "node serveur.js",
+    "dev": "nodemon serveur.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "socket.io": "^4.8.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  }
+}

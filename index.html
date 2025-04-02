@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tournoi des Super-Héros</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #0f1923;
+            color: #fff;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        h1 {
+            text-align: center;
+            color: #ff5722;
+            font-size: 36px;
+            margin-bottom: 40px;
+            text-shadow: 0 0 10px rgba(255, 87, 34, 0.5);
+        }
+        
+        .game-screen {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        #waiting-screen, #game-over-screen {
+            text-align: center;
+            margin: 50px auto;
+            padding: 30px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            max-width: 600px;
+        }
+        
+        #start-button, #play-again-button {
+            background-color: #ff5722;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 18px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 20px;
+        }
+        
+        #start-button:hover, #play-again-button:hover {
+            background-color: #ff7043;
+            transform: scale(1.05);
+        }
+        
+        .battle-area {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            margin-bottom: 30px;
+        }
+        
+        .hero-card {
+            width: 45%;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            position: relative;
+        }
+        
+        .hero-info {
+            margin-bottom: 20px;
+        }
+        
+        .hero-name {
+            font-size: 24px;
+            color: #ff5722;
+            margin-bottom: 10px;
+        }
+        
+        .hero-image {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background-color: #333;
+            margin: 0 auto 20px;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 72px;
+        }
+        
+        .health-bar-container {
+            height: 20px;
+            background-color: #333;
+            border-radius: 10px;
+            margin-bottom: 10px;
+        }
+        
+        .health-bar {
+            height: 100%;
+            width: 100%;
+            background-color: #4caf50;
+            border-radius: 10px;
+            transition: width 0.5s ease;
+        }
+        
+        .hero-stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            text-align: left;
+            margin-top: 20px;
+        }
+        
+        .stat {
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .controls {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+        }
+        
+        .controls h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #ff5722;
+        }
+        
+        .buttons-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+        }
+        
+        .action-button {
+            background-color: #2196f3;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .action-button:hover {
+            background-color: #64b5f6;
+        }
+        
+        #combat-log {
+            width: 100%;
+            max-width: 600px;
+            height: 150px;
+            overflow-y: auto;
+            background-color: rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            padding: 10px;
+            margin-top: 20px;
+        }
+        
+        .log-entry {
+            margin-bottom: 5px;
+            padding: 5px;
+            border-radius: 5px;
+        }
+        
+        .log-entry.attack {
+            background-color: rgba(244, 67, 54, 0.3);
+        }
+        
+        .log-entry.defense {
+            background-color: rgba(33, 150, 243, 0.3);
+        }
+        
+        .status {
+            text-align: center;
+            margin: 20px 0;
+            font-size: 20px;
+            font-weight: bold;
+            color: #ffeb3b;
+        }
+        
+        .hidden {
+            display: none;
+        }
+        
+        .attack-defense-category {
+            color: #ff5722;
+            font-weight: bold;
+        }
+        
+        @media (max-width: 768px) {
+            .battle-area {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .hero-card {
+                width: 100%;
+                margin-bottom: 20px;
+            }
+            
+            .buttons-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Tournoi des Super-Héros</h1>
+        
+        <!-- Écran d'attente -->
+        <div id="waiting-screen">
+            <h2>Bienvenue dans le Tournoi des Super-Héros</h2>
+            <p>Préparez-vous à affronter les plus grands héros dans des duels stratégiques !</p>
+            <p>Chaque héros commence avec 1000 PV. Choisissez vos attaques et défenses stratégiquement.</p>
+            <button id="start-button">Trouver un adversaire</button>
+        </div>
+        
+        <!-- Écran de jeu -->
+        <div id="game-screen" class="game-screen hidden">
+            <div class="status" id="status-message"></div>
+            
+            <div class="battle-area">
+                <!-- Votre héros -->
+                <div class="hero-card" id="player-hero">
+                    <div class="hero-info">
+                        <div class="hero-name" id="player-name"></div>
+                        <div class="hero-image" id="player-image"></div>
+                        <div class="health-bar-container">
+                            <div class="health-bar" id="player-health-bar"></div>
+                        </div>
+                        <div id="player-health-text">1000/1000 PV</div>
+                    </div>
+                    <div class="hero-stats" id="player-stats"></div>
+                </div>
+                
+                <!-- Héros adversaire -->
+                <div class="hero-card" id="opponent-hero">
+                    <div class="hero-info">
+                        <div class="hero-name" id="opponent-name"></div>
+                        <div class="hero-image" id="opponent-image"></div>
+                        <div class="health-bar-container">
+                            <div class="health-bar" id="opponent-health-bar"></div>
+                        </div>
+                        <div id="opponent-health-text">1000/1000 PV</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Contrôles de jeu -->
+            <div class="controls" id="attack-controls">
+                <h2>Choisissez votre attaque</h2>
+                <div class="buttons-container" id="attack-buttons">
+                    <button class="action-button" data-type="intelligence">Intelligence</button>
+                    <button class="action-button" data-type="strength">Force</button>
+                    <button class="action-button" data-type="speed">Vitesse</button>
+                    <button class="action-button" data-type="durability">Durabilité</button>
+                    <button class="action-button" data-type="power">Pouvoir</button>
+                    <button class="action-button" data-type="combat">Combat</button>
+                </div>
+            </div>
+            
+            <div class="controls hidden" id="defense-controls">
+                <h2>Choisissez votre défense</h2>
+                <div class="buttons-container" id="defense-buttons">
+                    <button class="action-button" data-type="intelligence">Intelligence</button>
+                    <button class="action-button" data-type="strength">Force</button>
+                    <button class="action-button" data-type="speed">Vitesse</button>
+                    <button class="action-button" data-type="durability">Durabilité</button>
+                    <button class="action-button" data-type="power">Pouvoir</button>
+                    <button class="action-button" data-type="combat">Combat</button>
+                </div>
+            </div>
+            
+            <!-- Journal de combat -->
+            <div id="combat-log"></div>
+        </div>
+        
+        <!-- Écran de fin de partie -->
+        <div id="game-over-screen" class="hidden">
+            <h2 id="game-result"></h2>
+            <p id="game-over-message"></p>
+            <button id="play-again-button">Jouer à nouveau</button>
+        </div>
+    </div>
+    <script src="https://cdn.socket.io/4.6.0/socket.io.min.js"></script>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Éléments DOM
+            const waitingScreen = document.getElementById('waiting-screen');
+            const gameScreen = document.getElementById('game-screen');
+            const gameOverScreen = document.getElementById('game-over-screen');
+            const startButton = document.getElementById('start-button');
+            const playAgainButton = document.getElementById('play-again-button');
+            const statusMessage = document.getElementById('status-message');
+            const attackControls = document.getElementById('attack-controls');
+            const defenseControls = document.getElementById('defense-controls');
+            const combatLog = document.getElementById('combat-log');
+            
+            // Informations du joueur
+            const playerName = document.getElementById('player-name');
+            const playerImage = document.getElementById('player-image');
+            const playerHealthBar = document.getElementById('player-health-bar');
+            const playerHealthText = document.getElementById('player-health-text');
+            const playerStats = document.getElementById('player-stats');
+            
+            // Informations de l'adversaire
+            const opponentName = document.getElementById('opponent-name');
+            const opponentImage = document.getElementById('opponent-image');
+            const opponentHealthBar = document.getElementById('opponent-health-bar');
+            const opponentHealthText = document.getElementById('opponent-health-text');
+            
+            // État du jeu
+            let gameState = {
+                gameId: null,
+                hero: null,
+                opponent: null,
+                isAttacker: false,
+                playerHealth: 1000,
+                opponentHealth: 1000
+            };
+            
+            // Connexion Socket.io
+            const socket = io("localhiost:3000");
+            
+            // Fonction pour initialiser le jeu
+            function initGame(data) {
+                // Mettre à jour l'état du jeu
+                gameState.gameId = data.gameId;
+                gameState.hero = data.hero;
+                gameState.opponent = data.opponent;
+                gameState.isAttacker = data.isAttacker;
+                
+                // Afficher les informations du héros du joueur
+                playerName.textContent = data.hero.name;
+                // Utiliser la première lettre du nom comme avatar (ou vous pourriez charger l'image)
+                playerImage.textContent = data.hero.name.charAt(0);
+                displayHeroStats(data.hero);
+                
+                // Afficher les informations du héros adversaire
+                opponentName.textContent = data.opponent;
+                opponentImage.textContent = data.opponent.charAt(0);
+                
+                // Mettre à jour l'interface
+                waitingScreen.classList.add('hidden');
+                gameScreen.classList.remove('hidden');
+                
+                // Afficher les contrôles appropriés
+                if (data.isAttacker) {
+                    statusMessage.textContent = "C'est votre tour d'attaquer !";
+                    attackControls.classList.remove('hidden');
+                    defenseControls.classList.add('hidden');
+                } else {
+                    statusMessage.textContent = "Attendez l'attaque de votre adversaire...";
+                    attackControls.classList.add('hidden');
+                    defenseControls.classList.add('hidden');
+                }
+                
+                // Ajouter une entrée dans le journal de combat
+                addLogEntry(`Le combat commence entre ${data.hero.name} et ${data.opponent} !`);
+            }
+            
+            // Fonction pour afficher les statistiques du héros
+            function displayHeroStats(hero) {
+                // Vider les statistiques existantes
+                playerStats.innerHTML = '';
+                
+                // Ajouter chaque statistique
+                const stats = ['intelligence', 'strength', 'speed', 'durability', 'power', 'combat'];
+                const statNames = {
+                    'intelligence': 'Intelligence',
+                    'strength': 'Force',
+                    'speed': 'Vitesse',
+                    'durability': 'Durabilité',
+                    'power': 'Pouvoir',
+                    'combat': 'Combat'
+                };
+                
+                stats.forEach(stat => {
+                    const statElement = document.createElement('div');
+                    statElement.className = 'stat';
+                    statElement.innerHTML = `<span>${statNames[stat]}:</span> <span>${hero.powerstats[stat]}</span>`;
+                    playerStats.appendChild(statElement);
+                });
+            }
+            
+            // Fonction pour mettre à jour les barres de vie
+            function updateHealthBars() {
+                const playerHealthPercentage = (gameState.playerHealth / 1000) * 100;
+                const opponentHealthPercentage = (gameState.opponentHealth / 1000) * 100;
+                
+                playerHealthBar.style.width = `${playerHealthPercentage}%`;
+                playerHealthText.textContent = `${gameState.playerHealth}/1000 PV`;
+                
+                opponentHealthBar.style.width = `${opponentHealthPercentage}%`;
+                opponentHealthText.textContent = `${gameState.opponentHealth}/1000 PV`;
+                
+                // Changer la couleur selon la santé
+                if (playerHealthPercentage < 25) {
+                    playerHealthBar.style.backgroundColor = '#f44336'; // Rouge
+                } else if (playerHealthPercentage < 50) {
+                    playerHealthBar.style.backgroundColor = '#ff9800'; // Orange
+                }
+                
+                if (opponentHealthPercentage < 25) {
+                    opponentHealthBar.style.backgroundColor = '#f44336'; // Rouge
+                } else if (opponentHealthPercentage < 50) {
+                    opponentHealthBar.style.backgroundColor = '#ff9800'; // Orange
+                }
+            }
+            
+            // Fonction pour ajouter une entrée dans le journal de combat
+            function addLogEntry(message, type) {
+                const entry = document.createElement('div');
+                entry.className = `log-entry ${type || ''}`;
+                entry.textContent = message;
+                combatLog.appendChild(entry);
+                combatLog.scrollTop = combatLog.scrollHeight;
+            }
+            
+            // Événement de clic sur le bouton de démarrage
+            startButton.addEventListener('click', () => {
+                startButton.disabled = true;
+                startButton.textContent = 'Recherche en cours...';
+                socket.emit('findOpponent');
+            });
+            
+            // Événement de clic sur le bouton pour jouer à nouveau
+            playAgainButton.addEventListener('click', () => {
+                gameOverScreen.classList.add('hidden');
+                waitingScreen.classList.remove('hidden');
+                startButton.disabled = false;
+                startButton.textContent = 'Trouver un adversaire';
+                
+                // Réinitialiser l'état du jeu
+                gameState = {
+                    gameId: null,
+                    hero: null,
+                    opponent: null,
+                    isAttacker: false,
+                    playerHealth: 1000,
+                    opponentHealth: 1000
+                };
+                
+                // Vider le journal de combat
+                combatLog.innerHTML = '';
+            });
+            
+            // Événement de clic sur les boutons d'attaque
+            document.getElementById('attack-buttons').addEventListener('click', (event) => {
+                if (event.target.classList.contains('action-button')) {
+                    const attackType = event.target.getAttribute('data-type');
+                    
+                    // Désactiver tous les boutons d'attaque
+                    const attackButtons = document.querySelectorAll('#attack-buttons .action-button');
+                    attackButtons.forEach(button => {
+                        button.disabled = true;
+                    });
+                    
+                    // Envoyer l'attaque au serveur
+                    socket.emit('attack', {
+                        gameId: gameState.gameId,
+                        attackType: attackType
+                    });
+                    
+                    // Mettre à jour l'interface
+                    statusMessage.textContent = "Attaque envoyée ! En attente de la défense de l'adversaire...";
+                    attackControls.classList.add('hidden');
+                    
+                    // Ajouter une entrée dans le journal de combat
+                    addLogEntry(`Vous attaquez avec ${attackType} !`, 'attack');
+                }
+            });
+            
+            // Événement de clic sur les boutons de défense
+            document.getElementById('defense-buttons').addEventListener('click', (event) => {
+                if (event.target.classList.contains('action-button')) {
+                    const defenseType = event.target.getAttribute('data-type');
+                    
+                    // Désactiver tous les boutons de défense
+                    const defenseButtons = document.querySelectorAll('#defense-buttons .action-button');
+                    defenseButtons.forEach(button => {
+                        button.disabled = true;
+                    });
+                    
+                    // Envoyer la défense au serveur
+                    socket.emit('defend', {
+                        gameId: gameState.gameId,
+                        defenseType: defenseType
+                    });
+                    
+                    // Mettre à jour l'interface
+                    statusMessage.textContent = "Défense choisie ! Calcul des dégâts en cours...";
+                    defenseControls.classList.add('hidden');
+                    
+                    // Ajouter une entrée dans le journal de combat
+                    addLogEntry(`Vous vous défendez avec ${defenseType} !`, 'defense');
+                }
+            });
+            
+            // Événements Socket.io
+            socket.on('waiting', () => {
+                startButton.textContent = 'En attente d\'un adversaire...';
+            });
+            
+            socket.on('gameStart', (data) => {
+                initGame(data);
+            });
+            
+            socket.on('chooseDefense', (data) => {
+                // Activer les boutons de défense
+                const defenseButtons = document.querySelectorAll('#defense-buttons .action-button');
+                defenseButtons.forEach(button => {
+                    button.disabled = false;
+                });
+                
+                // Mettre à jour l'interface
+                statusMessage.textContent = `L'adversaire attaque avec ${data.attackType} ! Choisissez votre défense :`;
+                attackControls.classList.add('hidden');
+                defenseControls.classList.remove('hidden');
+                
+                // Ajouter une entrée dans le journal de combat
+                addLogEntry(`L'adversaire attaque avec ${data.attackType} !`, 'attack');
+            });
+            
+            socket.on('turnResult', (data) => {
+                // Mettre à jour l'état du jeu
+                gameState.playerHealth = data.attackerHealth;
+                gameState.opponentHealth = data.defenderHealth;
+                gameState.isAttacker = data.isAttacker;
+                
+                // Mettre à jour les barres de vie
+                updateHealthBars();
+                
+                // Ajouter une entrée dans le journal de combat pour les dégâts
+                addLogEntry(`${data.damage} points de dégâts infligés !`);
+                
+                // Activer les contrôles appropriés pour le prochain tour
+                if (data.isAttacker) {
+                    statusMessage.textContent = "C'est votre tour d'attaquer !";
+                    
+                    // Activer les boutons d'attaque
+                    const attackButtons = document.querySelectorAll('#attack-buttons .action-button');
+                    attackButtons.forEach(button => {
+                        button.disabled = false;
+                    });
+                    
+                    attackControls.classList.remove('hidden');
+                    defenseControls.classList.add('hidden');
+                } else {
+                    statusMessage.textContent = "Attendez l'attaque de votre adversaire...";
+                    attackControls.classList.add('hidden');
+                    defenseControls.classList.add('hidden');
+                }
+            });
+            
+            socket.on('gameOver', (data) => {
+                // Mettre à jour l'interface
+                gameScreen.classList.add('hidden');
+                gameOverScreen.classList.remove('hidden');
+                
+                const gameResult = document.getElementById('game-result');
+                const gameOverMessage = document.getElementById('game-over-message');
+                
+                if (data.winner) {
+                    gameResult.textContent = "Victoire !";
+                    gameOverMessage.textContent = `${gameState.hero.name} a vaincu ${gameState.opponent} !`;
+                } else {
+                    gameResult.textContent = "Défaite !";
+                    gameOverMessage.textContent = `${gameState.opponent} a vaincu ${gameState.hero.name} !`;
+                }
+                
+                // Ajouter une entrée dans le journal de combat
+                addLogEntry(`Fin du combat ! ${data.heroName} est victorieux !`);
+            });
+            
+            socket.on('opponentLeft', () => {
+                // Mettre à jour l'interface
+                gameScreen.classList.add('hidden');
+                gameOverScreen.classList.remove('hidden');
+                
+                const gameResult = document.getElementById('game-result');
+                const gameOverMessage = document.getElementById('game-over-message');
+                
+                gameResult.textContent = "Victoire par forfait !";
+                gameOverMessage.textContent = "Votre adversaire a quitté le combat.";
+                
+                // Ajouter une entrée dans le journal de combat
+                addLogEntry("Votre adversaire a quitté le combat. Vous gagnez par forfait !");
+            });
+        });
+    </script>
+</body>
+</html>
