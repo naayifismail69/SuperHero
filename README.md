@@ -1,4 +1,4 @@
-# Jeu de Combat en Node.js
+# SuperHero
 
 Bienvenue dans le projet de jeu de combat en Node.js ! Ce projet est une application de jeu de combat simple, conçue pour être exécutée dans un environnement Node.js.
 
@@ -8,8 +8,7 @@ Bienvenue dans le projet de jeu de combat en Node.js ! Ce projet est une applica
 - [Fonctionnalités](#fonctionnalités)
 - [Installation](#installation)
 - [Utilisation](#utilisation)
-- [Contribuer](#contribuer)
-- [Licence](#licence)
+
 
 ## Description
 
@@ -29,5 +28,18 @@ Pour installer et exécuter ce projet, suivez ces étapes :
 1. *Cloner le dépôt* :
 
    ```bash
-   git clone https://github.com/votre-utilisateur/jeu-de-combat.git
-   cd jeu-de-combat
+   git clone https://github.com/naayifismail69/SuperHero.git
+   cd SuperHero
+
+2. **Installer les dependances:
+
+    ```bash
+   npm install socket.io express
+
+
+## Utilisation 
+
+Pour demarrer le jeu, exécutez la commande suivante: 
+
+```bash
+   node server.js
