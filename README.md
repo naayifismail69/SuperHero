@@ -31,7 +31,7 @@ Pour installer et exécuter ce projet, suivez ces étapes :
    git clone https://github.com/naayifismail69/SuperHero.git
    cd SuperHero
 
-2. **Installer les dependances:
+2. *Installer les dependances:
 
     ```bash
    npm install socket.io express
