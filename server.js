@@ -73,11 +73,13 @@ io.on('connection', (socket) => {
   });
 
   // Si un joueur attend déjà, démarrer une partie
+
   if (waitingPlayer && !gameInProgress) {
     const player1 = players[waitingPlayer];
     const player2 = players[socket.id];
     
     // Déterminer aléatoirement qui attaque et qui défend
+
     if (Math.random() > 0.5) {
       player1.role = 'attacker';
       player2.role = 'defender';
@@ -87,6 +89,7 @@ io.on('connection', (socket) => {
     }
     
     // Informer les joueurs de leurs rôles
+
     io.to(waitingPlayer).emit('game-start', {
       role: player1.role,
       opponent: {
@@ -104,15 +107,18 @@ io.on('connection', (socket) => {
     });
     
     // Marquer le jeu comme en cours
+
     gameInProgress = true;
     waitingPlayer = null;
   } else {
     // Mettre le joueur en attente
+    
     waitingPlayer = socket.id;
     socket.emit('waiting-for-opponent');
   }
 
   // Gérer les attaques
+  
   socket.on('attack', (data) => {
     const attacker = players[socket.id];
     let defender = null;
