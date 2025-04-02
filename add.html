@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tournoi des Super-Héros</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin: 0;
+      padding: 0;
+    }
+    .hero {
+      display: inline-block;
+      margin: 20px;
+      border: 2px solid #ccc;
+      border-radius: 10px;
+      padding: 10px;
+      width: 300px;
+    }
+    .hero img {
+      width: 100%;
+      border-radius: 10px;
+    }
+    .hero h2 {
+      color: #333;
+    }
+    .hero p {
+      font-size: 14px;
+      color: #666;
+    }
+  </style>
+</head>
+<body>
+  <h1>Bienvenue au Tournoi des Super-Héros</h1>
+  <div id="heroes"></div>
+
+  <script>
+    // Simuler les données des super-héros
+    const heroes = [
+      {
+        name: 'Angel Dust',
+        slug: '25-angel-dust',
+        powerstats: { intelligence: 38, strength: 65 },
+        biography: { fullName: 'Christina', publisher: 'Marvel Comics' },
+        images: { lg: 'lg/25-angel-dust.jpg' }
+      },
+      {
+        name: 'Batman',
+        slug: '69-batman',
+        powerstats: { intelligence: 81, strength: 40 },
+        biography: { fullName: 'Bruce Wayne', publisher: 'DC Comics' },
+        images: { lg: 'lg/69-batman.jpg' }
+      }
+    ];
+
+    // Afficher les super-héros dans le div "heroes"
+    const heroesDiv = document.getElementById('heroes');
+    heroes.forEach(hero => {
+      const heroElement = document.createElement('div');
+      heroElement.className = 'hero';
+      heroElement.innerHTML = `
+        <img src="${hero.images.lg}" alt="${hero.name}">
+        <h2>${hero.name}</h2>
+        <p>Alias : ${hero.biography.fullName}</p>
+        <p>Éditeur : ${hero.biography.publisher}</p>
+        <p>Intelligence : ${hero.powerstats.intelligence}</p>
+        <p>Force : ${hero.powerstats.strength}</p>
+      `;
+      heroesDiv.appendChild(heroElement);
+    });
+  </script>
+</body>
+</html>
