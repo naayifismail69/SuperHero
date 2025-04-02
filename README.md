@@ -43,3 +43,9 @@ Pour demarrer le jeu, exécutez la commande suivante:
 
 ```bash
    node server.js
+```
+Ouvrez votre navigateur et allez à cette adresse: 
+
+```bash
+   http://localhost:3000
+```
