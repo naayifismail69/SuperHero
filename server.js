@@ -189,6 +189,7 @@ io.on('connection', (socket) => {
       
       return;
     }
+    conso
     
     // Changer le joueur attaquant
     game.currentAttacker = socket.id;
