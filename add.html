@@ -535,6 +535,9 @@
             const percentage = Math.max(0, (hp / maxHp) * 100);
             element.textContent = `${hp} PV`;
             fillElement.style.width = `${percentage}%`;
+            if (percentage <= 50) {
+                fillElement.style.backgroundColor = '#d05252';
+            }
         }
 
         // Fonction pour ajouter un message au journal
