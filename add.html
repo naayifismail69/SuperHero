@@ -158,7 +158,7 @@
             background-color: #202020;
             border-radius: 10px;
             padding: 20px;
-            margin-top: 20px;
+            margin-top: 2px;
             width: 100%;
         }
 
@@ -279,22 +279,22 @@
         </div>
 
         <div class="game-area" id="gameArea" style="display: none;">
-            <div class="hero-card" id="yourHeroCard">
+            <div class="hero-card" id="yourHeroCard" >
                 <div class="hero-info">
                     <div class="hero-image" id="yourHeroImage">
                         <div id="yourHeroPlaceholder">Image non disponible</div>
                     </div>
-                    <div class="hero-stats">
+                    <div class="hero-stats" style="width: 100%;">
                         <h3 id="yourHeroName">Nom du héros</h3>
-                        <div class="stat-bar health-bar">
+                        <div class="stat-bar health-bar" id="healthid" >
                             <div class="stat-bar-fill" id="yourHealthFill" style="width: 100%"></div>
                             <div class="stat-value" id="yourHealthValue">1000 PV</div>
                         </div>
                         
                         <!-- Stats disposées en 2 colonnes -->
-                        <div class="stats-row">
+                        <div class="stats-row" style="width: 100%;">
                             <div class="stat-column">
-                                <label for="intel">Intelligence</label>
+                                <label for="intel" >Intelligence</label>
                                 <div class="stat-bar intelligence-bar" id="intel">
                                     <div class="stat-bar-fill" id="yourIntelligenceFill" style="width: 0%"></div>
                                     <div class="stat-value" id="yourIntelligenceValue">0</div>
@@ -347,12 +347,12 @@
                 <div id="yourRole">Rôle: -</div>
             </div>
 
-            <div class="hero-card" id="opponentHeroCard">
+            <div class="hero-card" id="opponentHeroCard" >
                 <div class="hero-info">
-                    <div class="hero-image" id="opponentHeroImage">
+                    <div class="hero-image" id="opponentHeroImage" >
                         <div id="opponentHeroPlaceholder">Image non disponible</div>
                     </div>
-                    <div class="hero-stats">
+                    <div class="hero-stats" style="width: 100%;">
                         <h3 id="opponentHeroName">Nom du héros</h3>
                         <div class="stat-bar health-bar">
                             <div class="stat-bar-fill" id="opponentHealthFill" style="width: 100%"></div>
@@ -419,12 +419,12 @@
                 <h1>Console</h1>
             </header> -->
 
-            <div class="action-area">
-                <div class="message-log" id="messageLog"></div>
+            <div class="action-area" style="">
+                <div class="message-log" id="messageLog" style="padding-bottom: 0;"></div>
 
                 <div class="actions">
                     <div class="action-list" id="attacksList">
-                        <h3>Attaques</h3>
+                        <h3 style="margin-top: 0;">Attaques</h3>
                         <select class="form-select form-select-lg mb-3" id="attack_select" style="width: 100%; height: 40px;" >
                             <option selected disabled>Choisir une attaque</option>
                         </select>
@@ -432,7 +432,7 @@
                     </div>
 
                     <div class="action-list" id="defensesList">
-                        <h3>Défenses</h3>
+                        <h3 style="margin-top: 0;">Défenses</h3>
                         <select class="form-select form-select-lg mb-3" id="defense_select" style="width: 100%; height: 40px;">
                             <option selected disabled>Choisir une défense</option>
                         </select>
@@ -455,6 +455,8 @@
         </div>
     </div>
 
+   
+
     <script src="https://cdn.socket.io/4.6.0/socket.io.min.js"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
@@ -466,7 +468,10 @@
         const socket = io("http://localhost:3000", {
             transports: ['websocket']
         });
-
+        
+        
+    
+        
         // Éléments DOM
         const waitingScreen = document.getElementById('waitingScreen');
         const gameArea = document.getElementById('gameArea');
@@ -544,8 +549,8 @@
         // Fonction pour mettre à jour l'interface en fonction du rôle
         function updateInterface() {
             if (myRole === 'attacker') {
-                yourRole.textContent = 'Rôle: Attaquant';
-                opponentRole.textContent = 'Rôle: Défenseur';
+                yourRole.textContent = 'Attaquant';
+                opponentRole.textContent = 'Défenseur';
 
                 // Activer le select d'attaque, désactiver celui de défense
                 attackSelect.disabled = false;
@@ -555,8 +560,8 @@
 
                 addMessage('C\'est votre tour d\'attaquer !', 'system');
             } else {
-                yourRole.textContent = 'Rôle: Défenseur';
-                opponentRole.textContent = 'Rôle: Attaquant';
+                yourRole.textContent = 'Défenseur';
+                opponentRole.textContent = 'Attaquant';
 
                 // Désactiver le select d'attaque
                 attackSelect.disabled = true;
