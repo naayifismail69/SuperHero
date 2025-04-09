@@ -5,6 +5,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Jeu de Superhéros</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
+    <script src="https://kit.fontawesome.com/ca00bf51a9.js" crossorigin="anonymous"></script>
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -376,11 +380,21 @@
                 <div class="actions">
                     <div class="action-list" id="attacksList">
                         <h3>Attaques</h3>
+                        <select class="form-select form-select-lg mb-3" aria-label="Large select example" style="width: 100%" id="attaque_select">
+                            <option selected>Choose Attack</option>
+                            
+                          </select>
+                          
                         <div id="attackButtons"></div>
                     </div>
 
                     <div class="action-list" id="defensesList">
                         <h3>Défenses</h3>
+                        <select class="form-select form-select-lg mb-3" aria-label="Large select example" style="width: 100%" id="defense_select">
+                            <option selected>Choose defense</option>
+                            
+                          </select>
+                          
                         <div id="defenseButtons"></div>
                     </div>
                 </div>
@@ -402,6 +416,10 @@
 
     <script src="https://cdn.socket.io/4.6.0/socket.io.min.js"></script>
 
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+    crossorigin="anonymous"></script>
+    
     <script>
         // Établir une connexion avec le serveur
         const socket = io("http://localhost:3000", {
@@ -520,52 +538,86 @@
             attackButtons.innerHTML = '';
             defenseButtons.innerHTML = '';
 
-            // Créer les boutons d'attaque
+            // add attacques
             attacks.forEach(attack => {
-                const button = document.createElement('button');
-                button.className = 'attack-btn';
-                button.textContent = `${attack.name} (${attack.superPower}, x${attack.modifier})`;
-                button.disabled = myRole !== 'attacker';
+                
+                //document.getElementById("attaque_select").innerHTML+= `<option value="${attack.name}">${attack.name} (${attack.superPower}, x${attack.modifier})</option>`;
+                const option = document.createElement('option');
+                option.textContent = `${attack.name} (${attack.superPower}, x${attack.modifier})`;
+                option.value = `${attack.name}`
 
-                button.addEventListener('click', () => {
-                    socket.emit('attack', { attackName: attack.name });
-                    addMessage(`Vous utilisez ${attack.name} !`, 'attack');
+                document.getElementById("attaque_select").appendChild(option);
+                
 
-                    // Désactiver tous les boutons d'attaque après l'avoir utilisé
-                    Array.from(attackButtons.querySelectorAll('button')).forEach(btn => {
-                        btn.disabled = true;
-                    });
-                });
 
-                attackButtons.appendChild(button);
-            });
+             
+            
+            }
+
+            )
+
+
+            // Créer les boutons d'attaque
+            // attacks.forEach(attack => {
+            //     const button = document.createElement('button');
+            //     button.className = 'attack-btn';
+            //     button.textContent = `${attack.name} (${attack.superPower}, x${attack.modifier})`;
+            //     button.disabled = myRole !== 'attacker';
+
+            //     button.addEventListener('click', () => {
+            //         socket.emit('attack', { attackName: attack.name });
+            //         addMessage(`Vous utilisez ${attack.name} !`, 'attack');
+
+            //         // Désactiver tous les boutons d'attaque après l'avoir utilisé
+            //         Array.from(attackButtons.querySelectorAll('button')).forEach(btn => {
+            //             btn.disabled = true;
+            //         });
+            //     });
+
+            //     attackButtons.appendChild(button);
+            // });
+
+            //create defense 
+
+            // add attacques
+            defenses.forEach(defense => {
+                
+                //document.getElementById("defense_select").innerHTML+= `<option value="${defense.name}">${defense.name} (${defense.superPower}, x${defense.modifier})</option>`;
+
+                const option = document.createElement('option');
+                option.textContent = `${defense.name} (${defense.superPower}, x${defense.modifier})`;
+                option.value = `${defense.name}`
+
+                document.getElementById("defense_select").appendChild(option);
+
+            })
 
             // Créer les boutons de défense
-            defenses.forEach(defense => {
-                const button = document.createElement('button');
-                button.className = 'defense-btn';
-                button.textContent = `${defense.name} (${defense.superPower}, -${defense.reduction})`;
-                button.disabled = myRole !== 'defender' || !incomingAttack;
+            // defenses.forEach(defense => {
+            //     const button = document.createElement('button');
+            //     button.className = 'defense-btn';
+            //     button.textContent = `${defense.name} (${defense.superPower}, -${defense.reduction})`;
+            //     button.disabled = myRole !== 'defender' || !incomingAttack;
 
-                button.addEventListener('click', () => {
-                    socket.emit('defend', {
-                        defenseName: defense.name,
-                        incomingDamage: incomingAttack.damage
-                    });
+            //     button.addEventListener('click', () => {
+            //         socket.emit('defend', {
+            //             defenseName: defense.name,
+            //             incomingDamage: incomingAttack.damage
+            //         });
 
-                    addMessage(`Vous utilisez ${defense.name} contre ${incomingAttack.attackName} !`, 'defense');
+            //         addMessage(`Vous utilisez ${defense.name} contre ${incomingAttack.attackName} !`, 'defense');
 
-                    // Désactiver tous les boutons de défense après l'avoir utilisé
-                    Array.from(defenseButtons.querySelectorAll('button')).forEach(btn => {
-                        btn.disabled = true;
-                    });
+            //         // Désactiver tous les boutons de défense après l'avoir utilisé
+            //         Array.from(defenseButtons.querySelectorAll('button')).forEach(btn => {
+            //             btn.disabled = true;
+            //         });
 
-                    // Réinitialiser l'attaque entrante
-                    incomingAttack = null;
-                });
+            //         // Réinitialiser l'attaque entrante
+            //         incomingAttack = null;
+            //     });
 
-                defenseButtons.appendChild(button);
-            });
+            //     defenseButtons.appendChild(button);
+            // });
         }
 
         // Événements socket.io
