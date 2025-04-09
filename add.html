@@ -271,31 +271,40 @@
                     <div class="hero-stats">
                         <!--h3>Attaquant: </h3-->
                         <h3 id="yourHeroName">Nom du héros</h3>
+                        <label for="">Health</label>
                         <div class="stat-bar health-bar">
                             <div class="stat-bar-fill" id="yourHealthFill" style="width: 100%"></div>
                             <div class="stat-value" id="yourHealthValue">1000 PV</div>
                         </div>
-                        <div class="stat-bar intelligence-bar">
+                        <label for="intel" >Intelligence</label>
+                        <div class="stat-bar intelligence-bar" id="intel" style="margin-top: 5px;">
+                          
                             <div class="stat-bar-fill" id="yourIntelligenceFill" style="width: 0%"></div>
                             <div class="stat-value" id="yourIntelligenceValue">0</div>
                         </div>
-                        <div class="stat-bar strength-bar">
+                        <label for="force">Strength</label>
+                        <div class="stat-bar strength-bar" id="force">
                             <div class="stat-bar-fill" id="yourStrengthFill" style="width: 0%"></div>
                             <div class="stat-value" id="yourStrengthValue">0</div>
                         </div>
-                        <div class="stat-bar speed-bar">
+                        <label for="Speed">Speed</label>
+                        <div class="stat-bar speed-bar" id="Speed">
                             <div class="stat-bar-fill" id="yourSpeedFill" style="width: 0%"></div>
                             <div class="stat-value" id="yourSpeedValue">0</div>
                         </div>
-                        <div class="stat-bar durability-bar">
+                        <label for="durability">Durability</label>
+                        <div class="stat-bar durability-bar" id="durability">
                             <div class="stat-bar-fill" id="yourDurabilityFill" style="width: 0%"></div>
                             <div class="stat-value" id="yourDurabilityValue">0</div>
                         </div>
-                        <div class="stat-bar power-bar">
+
+                        <label for="power">Power</label>
+                        <div class="stat-bar power-bar" id="power">
                             <div class="stat-bar-fill" id="yourPowerFill" style="width: 0%"></div>
                             <div class="stat-value" id="yourPowerValue">0</div>
                         </div>
-                        <div class="stat-bar combat-bar">
+                        <label for="durability">Durability</label>
+                        <div class="stat-bar combat-bar" id==durability>
                             <div class="stat-bar-fill" id="yourCombatFill" style="width: 0%"></div>
                             <div class="stat-value" id="yourCombatValue">0</div>
                         </div>
@@ -307,37 +316,47 @@
             <div class="hero-card" id="opponentHeroCard">
                 <!--h2>Adversaire</h2-->
                 <div class="hero-info">
+
                     <div class="hero-image" id="opponentHeroImage">
                         <div id="opponentHeroPlaceholder">Image non disponible</div>
                     </div>
                     <div class="hero-stats">
                         <!--h3>Adversaire: </h3-->
                         <h3 id="opponentHeroName">Nom du héros</h3>
+
+                        <label for="">Health</label>
                         <div class="stat-bar health-bar">
                             <div class="stat-bar-fill" id="opponentHealthFill" style="width: 100%"></div>
                             <div class="stat-value" id="opponentHealthValue">1000 PV</div>
                         </div>
-                        <div class="stat-bar intelligence-bar">
+                        <label for="iintelligence">iintelligence</label>
+                        <div class="stat-bar intelligence-bar" id="iintelligence">
                             <div class="stat-bar-fill" id="opponentIntelligenceFill" style="width: 0%"></div>
                             <div class="stat-value" id="opponentIntelligenceValue">0</div>
                         </div>
+                        <label for="">strength</label>
                         <div class="stat-bar strength-bar">
-                            div.labe
                             <div class="stat-bar-fill" id="opponentStrengthFill" style="width: 0%"></div>
                             <div class="stat-value" id="opponentStrengthValue">0</div>
                         </div>
+
+                        <label for="">Speed</label>
                         <div class="stat-bar speed-bar">
                             <div class="stat-bar-fill" id="opponentSpeedFill" style="width: 0%"></div>
                             <div class="stat-value" id="opponentSpeedValue">0</div>
                         </div>
+
                         <div class="stat-bar durability-bar">
                             <div class="stat-bar-fill" id="opponentDurabilityFill" style="width: 0%"></div>
                             <div class="stat-value" id="opponentDurabilityValue">0</div>
                         </div>
+                        <label for="">power</label>
                         <div class="stat-bar power-bar">
                             <div class="stat-bar-fill" id="opponentPowerFill" style="width: 0%"></div>
                             <div class="stat-value" id="opponentPowerValue">0</div>
                         </div>
+
+                        <label for="">combat</label>
                         <div class="stat-bar combat-bar">
                             <div class="stat-bar-fill" id="opponentCombatFill" style="width: 0%"></div>
                             <div class="stat-value" id="opponentCombatValue">0</div>
@@ -346,6 +365,10 @@
                 </div>
                 <div id="opponentRole">Rôle: -</div>
             </div>
+      
+            <header style="width:100%">
+                <h1>Console</h1>
+            </header>
 
             <div class="action-area">
                 <div class="message-log" id="messageLog"></div>
@@ -444,7 +467,7 @@
         // Fonction pour mettre à jour les barres de vie
         function updateHealthBar(hp, maxHp, element, fillElement) {
             const percentage = Math.max(0, (hp / maxHp) * 100);
-            element.textContent = `Health: ${hp} PV`;
+            element.textContent = `${hp} PV`;
             fillElement.style.width = `${percentage}%`;
         }
 
