@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,14 +13,14 @@
             margin: 0;
             padding: 0;
         }
-        
+
         .container {
             max-width: 1300px;
             margin: 0 auto;
             padding: 20px;
             justify-content: center;
         }
-        
+
         header {
             text-align: center;
             padding: 20px;
@@ -27,19 +28,19 @@
             margin-bottom: 20px;
             border-radius: 10px;
         }
-        
+
         h1 {
             color: #fcfcfc;
             margin: 0;
         }
-        
+
         .game-area {
             display: flex;
             flex-wrap: wrap;
             justify-content: space-between;
             gap: 20px;
         }
-        
+
         .waiting-screen {
             text-align: center;
             padding: 50px;
@@ -47,7 +48,7 @@
             border-radius: 10px;
             width: 100%;
         }
-        
+
         .hero-card {
             background-color: #202020;
             border-radius: 10px;
@@ -57,13 +58,13 @@
             display: flex;
             flex-direction: row;
         }
-        
+
         .hero-info {
             display: flex;
             gap: 20px;
             margin-bottom: 20px;
         }
-        
+
         .hero-image {
             width: 150px;
             height: 200px;
@@ -74,16 +75,16 @@
             justify-content: center;
             overflow: hidden;
         }
-        
+
         .hero-image img {
             max-width: 100%;
             max-height: 100%;
         }
-        
+
         .hero-stats {
             flex-grow: 1;
         }
-        
+
         .stat-bar {
             height: 20px;
             background-color: #303030;
@@ -92,41 +93,41 @@
             overflow: hidden;
             position: relative;
         }
-        
+
         .stat-bar-fill {
             height: 100%;
             background-color: #e74c3c;
             border-radius: 10px;
         }
-        
+
         .health-bar .stat-bar-fill {
             background-color: #2ecc71;
         }
-        
+
         .intelligence-bar .stat-bar-fill {
             background-color: #3498db;
         }
-        
+
         .strength-bar .stat-bar-fill {
             background-color: #e74c3c;
         }
-        
+
         .speed-bar .stat-bar-fill {
             background-color: #f1c40f;
         }
-        
+
         .durability-bar .stat-bar-fill {
             background-color: #9b59b6;
         }
-        
+
         .power-bar .stat-bar-fill {
             background-color: #e67e22;
         }
-        
+
         .combat-bar .stat-bar-fill {
             background-color: #34495e;
         }
-        
+
         .stat-value {
             position: absolute;
             top: 0;
@@ -140,7 +141,7 @@
             font-weight: bold;
             text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
         }
-        
+
         .action-area {
             background-color: #202020;
             border-radius: 10px;
@@ -148,7 +149,7 @@
             margin-top: 20px;
             width: 100%;
         }
-        
+
         .message-log {
             background-color: #303030;
             border-radius: 5px;
@@ -157,30 +158,30 @@
             overflow-y: auto;
             margin-bottom: 20px;
         }
-        
+
         .message {
             margin-bottom: 5px;
             padding: 5px;
             border-radius: 5px;
         }
-        
+
         .message.attack {
             background-color: rgba(231, 76, 60, 0.3);
         }
-        
+
         .message.defense {
             background-color: rgba(46, 204, 113, 0.3);
         }
-        
+
         .message.system {
             background-color: rgba(52, 152, 219, 0.3);
         }
-        
+
         .actions {
             display: flex;
             gap: 20px;
         }
-        
+
         .action-list {
             flex: 1;
             background-color: #303030;
@@ -189,7 +190,7 @@
             max-height: 200px;
             overflow-y: auto;
         }
-        
+
         button {
             background-color: #3498db;
             color: white;
@@ -202,32 +203,32 @@
             text-align: left;
             transition: background-color 0.2s;
         }
-        
+
         button:hover {
             background-color: #2980b9;
         }
-        
+
         button.attack-btn {
             background-color: #e74c3c;
         }
-        
+
         button.attack-btn:hover {
             background-color: #c0392b;
         }
-        
+
         button.defense-btn {
             background-color: #2ecc71;
         }
-        
+
         button.defense-btn:hover {
             background-color: #27ae60;
         }
-        
+
         button:disabled {
             background-color: #7f8c8d;
             cursor: not-allowed;
         }
-        
+
         .result-screen {
             text-align: center;
             padding: 50px;
@@ -236,29 +237,30 @@
             width: 100%;
             display: none;
         }
-        
+
         .result-win {
             color: #2ecc71;
             font-size: 24px;
         }
-        
+
         .result-lose {
             color: #e74c3c;
             font-size: 24px;
         }
     </style>
 </head>
+
 <body>
     <div class="container">
         <header>
             <h1>Bataille de Superhéros</h1>
         </header>
-        
+
         <div class="waiting-screen" id="waitingScreen">
             <h2>En attente d'un adversaire...</h2>
             <p>Un superhéros vous sera attribué lorsqu'un adversaire rejoindra la partie.</p>
         </div>
-        
+
         <div class="game-area" id="gameArea" style="display: none;">
             <div class="hero-card" id="yourHeroCard">
                 <!--h2>Héros</h2-->
@@ -301,7 +303,7 @@
                 </div>
                 <div id="yourRole">Rôle: -</div>
             </div>
-            
+
             <div class="hero-card" id="opponentHeroCard">
                 <!--h2>Adversaire</h2-->
                 <div class="hero-info">
@@ -309,7 +311,7 @@
                         <div id="opponentHeroPlaceholder">Image non disponible</div>
                     </div>
                     <div class="hero-stats">
-                         <!--h3>Adversaire: </h3-->
+                        <!--h3>Adversaire: </h3-->
                         <h3 id="opponentHeroName">Nom du héros</h3>
                         <div class="stat-bar health-bar">
                             <div class="stat-bar-fill" id="opponentHealthFill" style="width: 100%"></div>
@@ -343,16 +345,16 @@
                 </div>
                 <div id="opponentRole">Rôle: -</div>
             </div>
-            
+
             <div class="action-area">
                 <div class="message-log" id="messageLog"></div>
-                
+
                 <div class="actions">
                     <div class="action-list" id="attacksList">
                         <h3>Attaques</h3>
                         <div id="attackButtons"></div>
                     </div>
-                    
+
                     <div class="action-list" id="defensesList">
                         <h3>Défenses</h3>
                         <div id="defenseButtons"></div>
@@ -360,7 +362,7 @@
                 </div>
             </div>
         </div>
-        
+
         <div class="result-screen" id="resultScreen">
             <div id="victoryMessage" class="result-win" style="display: none">
                 <h2>Victoire !</h2>
@@ -375,13 +377,13 @@
     </div>
 
     <script src="https://cdn.socket.io/4.6.0/socket.io.min.js"></script>
-    
+
     <script>
         // Établir une connexion avec le serveur
         const socket = io("http://localhost:3000", {
             transports: ['websocket']
         });
-        
+
         // Éléments DOM
         const waitingScreen = document.getElementById('waitingScreen');
         const gameArea = document.getElementById('gameArea');
@@ -389,23 +391,23 @@
         const victoryMessage = document.getElementById('victoryMessage');
         const defeatMessage = document.getElementById('defeatMessage');
         const playAgainBtn = document.getElementById('playAgainBtn');
-        
+
         const yourHeroName = document.getElementById('yourHeroName');
         const yourHeroImage = document.getElementById('yourHeroImage');
         const yourHealthValue = document.getElementById('yourHealthValue');
         const yourHealthFill = document.getElementById('yourHealthFill');
         const yourRole = document.getElementById('yourRole');
-        
+
         const opponentHeroName = document.getElementById('opponentHeroName');
         const opponentHeroImage = document.getElementById('opponentHeroImage');
         const opponentHealthValue = document.getElementById('opponentHealthValue');
         const opponentHealthFill = document.getElementById('opponentHealthFill');
         const opponentRole = document.getElementById('opponentRole');
-        
+
         const messageLog = document.getElementById('messageLog');
         const attackButtons = document.getElementById('attackButtons');
         const defenseButtons = document.getElementById('defenseButtons');
-        
+
         // Variables globales
         let myHero;
         let myRole;
@@ -413,38 +415,38 @@
         let attacks = [];
         let defenses = [];
         let incomingAttack = null;
-        
+
         // Fonction pour mettre à jour les barres de statistiques
         function updateStatBars(hero, prefix) {
             const stats = hero.powerstats;
             const maxStat = 100;
-            
+
             document.getElementById(`${prefix}IntelligenceValue`).textContent = stats.intelligence;
             document.getElementById(`${prefix}IntelligenceFill`).style.width = `${stats.intelligence}%`;
-            
+
             document.getElementById(`${prefix}StrengthValue`).textContent = stats.strength;
             document.getElementById(`${prefix}StrengthFill`).style.width = `${stats.strength}%`;
-            
+
             document.getElementById(`${prefix}SpeedValue`).textContent = stats.speed;
             document.getElementById(`${prefix}SpeedFill`).style.width = `${stats.speed}%`;
-            
+
             document.getElementById(`${prefix}DurabilityValue`).textContent = stats.durability;
             document.getElementById(`${prefix}DurabilityFill`).style.width = `${stats.durability}%`;
-            
+
             document.getElementById(`${prefix}PowerValue`).textContent = stats.power;
             document.getElementById(`${prefix}PowerFill`).style.width = `${stats.power}%`;
-            
+
             document.getElementById(`${prefix}CombatValue`).textContent = stats.combat;
             document.getElementById(`${prefix}CombatFill`).style.width = `${stats.combat}%`;
         }
-        
+
         // Fonction pour mettre à jour les barres de vie
         function updateHealthBar(hp, maxHp, element, fillElement) {
             const percentage = Math.max(0, (hp / maxHp) * 100);
-            element.textContent = `${hp} PV`;
+            element.textContent = `Health: ${hp} PV`;
             fillElement.style.width = `${percentage}%`;
         }
-        
+
         // Fonction pour ajouter un message au journal
         function addMessage(message, type) {
             const messageElement = document.createElement('div');
@@ -453,179 +455,179 @@
             messageLog.appendChild(messageElement);
             messageLog.scrollTop = messageLog.scrollHeight;
         }
-        
+
         // Fonction pour mettre à jour l'interface en fonction du rôle
         function updateInterface() {
             if (myRole === 'attacker') {
                 yourRole.textContent = 'Rôle: Attaquant';
                 opponentRole.textContent = 'Rôle: Défenseur';
-                
+
                 // Activer les boutons d'attaque, désactiver les boutons de défense
                 Array.from(attackButtons.querySelectorAll('button')).forEach(btn => {
                     btn.disabled = false;
                 });
-                
+
                 Array.from(defenseButtons.querySelectorAll('button')).forEach(btn => {
                     btn.disabled = true;
                 });
-                
+
                 addMessage('C\'est votre tour d\'attaquer !', 'system');
             } else {
                 yourRole.textContent = 'Rôle: Défenseur';
                 opponentRole.textContent = 'Rôle: Attaquant';
-                
+
                 // Désactiver les boutons d'attaque
                 Array.from(attackButtons.querySelectorAll('button')).forEach(btn => {
                     btn.disabled = true;
                 });
-                
+
                 // Les boutons de défense seront activés lorsqu'une attaque arrive
                 Array.from(defenseButtons.querySelectorAll('button')).forEach(btn => {
                     btn.disabled = true;
                 });
-                
+
                 addMessage('En attente de l\'attaque de l\'adversaire...', 'system');
             }
         }
-        
+
         // Générer les boutons d'attaque et de défense
         function generateActionButtons() {
             // Vider les conteneurs
             attackButtons.innerHTML = '';
             defenseButtons.innerHTML = '';
-            
+
             // Créer les boutons d'attaque
             attacks.forEach(attack => {
                 const button = document.createElement('button');
                 button.className = 'attack-btn';
                 button.textContent = `${attack.name} (${attack.superPower}, x${attack.modifier})`;
                 button.disabled = myRole !== 'attacker';
-                
+
                 button.addEventListener('click', () => {
                     socket.emit('attack', { attackName: attack.name });
                     addMessage(`Vous utilisez ${attack.name} !`, 'attack');
-                    
+
                     // Désactiver tous les boutons d'attaque après l'avoir utilisé
                     Array.from(attackButtons.querySelectorAll('button')).forEach(btn => {
                         btn.disabled = true;
                     });
                 });
-                
+
                 attackButtons.appendChild(button);
             });
-            
+
             // Créer les boutons de défense
             defenses.forEach(defense => {
                 const button = document.createElement('button');
                 button.className = 'defense-btn';
                 button.textContent = `${defense.name} (${defense.superPower}, -${defense.reduction})`;
                 button.disabled = myRole !== 'defender' || !incomingAttack;
-                
+
                 button.addEventListener('click', () => {
-                    socket.emit('defend', { 
+                    socket.emit('defend', {
                         defenseName: defense.name,
                         incomingDamage: incomingAttack.damage
                     });
-                    
+
                     addMessage(`Vous utilisez ${defense.name} contre ${incomingAttack.attackName} !`, 'defense');
-                    
+
                     // Désactiver tous les boutons de défense après l'avoir utilisé
                     Array.from(defenseButtons.querySelectorAll('button')).forEach(btn => {
                         btn.disabled = true;
                     });
-                    
+
                     // Réinitialiser l'attaque entrante
                     incomingAttack = null;
                 });
-                
+
                 defenseButtons.appendChild(button);
             });
         }
-        
+
         // Événements socket.io
         // Quand un héros est attribué au joueur
         socket.on('hero-assigned', (data) => {
             myHero = data.hero;
             attacks = data.attacks;
             defenses = data.defenses;
-            
+
             // Mettre à jour l'interface avec les informations du héros
-            yourHeroName.textContent = `Attaquant: ${myHero.name}`; ;
+            yourHeroName.textContent = `Attaquant: ${myHero.name}`;;
             updateStatBars(myHero, 'your');
-            
+
             // Générer les boutons d'attaque et de défense
             generateActionButtons();
-            
+
             // Tentative de charger l'image du héros
             const imgElement = document.createElement('img');
             imgElement.src = `/images/${myHero.images.md}`;
             imgElement.alt = myHero.name;
             imgElement.onerror = () => {
-                yourHeroImage.innerHTML = `<div>${myHero.name}</div>`;
+                yourHeroImage.innerHTML = `<img src="https://cdn.jsdelivr.net/gh/rtomczak/superhero-api@0.3.0/api/images/sm/${myHero.slug}.jpg" alt="">`;
             };
             yourHeroImage.innerHTML = '';
             yourHeroImage.appendChild(imgElement);
         });
-        
+
         // En attente d'un adversaire
         socket.on('waiting-for-opponent', () => {
             waitingScreen.style.display = 'block';
             gameArea.style.display = 'none';
             resultScreen.style.display = 'none';
         });
-        
+
         // Début de la partie
         socket.on('game-start', (data) => {
             myRole = data.role;
             opponentHero = data.opponent.hero;
-            
+
             // Mettre à jour l'interface avec les informations de l'adversaire
-            opponentHeroName.textContent = `Adversaire: ${ opponentHero.name}`;
+            opponentHeroName.textContent = `Adversaire: ${opponentHero.name}`;
             updateStatBars(opponentHero, 'opponent');
             updateHealthBar(data.opponent.hp, 1000, opponentHealthValue, opponentHealthFill);
-            
+
             // Tentative de charger l'image de l'adversaire
             const imgElement = document.createElement('img');
             imgElement.src = `/images/${opponentHero.images.md}`;
             imgElement.alt = opponentHero.name;
             imgElement.onerror = () => {
-                opponentHeroImage.innerHTML = `<div>${opponentHero.name}</div>`;
+                opponentHeroImage.innerHTML = `<img src="https://cdn.jsdelivr.net/gh/rtomczak/superhero-api@0.3.0/api/images/sm/${opponentHero.slug}.jpg" alt="" />`;
             };
             opponentHeroImage.innerHTML = '';
             opponentHeroImage.appendChild(imgElement);
-            
+
             // Mettre à jour l'interface en fonction du rôle
             updateInterface();
-            
+
             // Afficher la zone de jeu
             waitingScreen.style.display = 'none';
             gameArea.style.display = 'flex';
             resultScreen.style.display = 'none';
-            
+
             // Ajouter un message de début de jeu
             addMessage(`La partie commence ! Vous êtes ${myHero.name} et vous affrontez ${opponentHero.name}.`, 'system');
             addMessage(`Vous êtes ${myRole === 'attacker' ? 'l\'attaquant' : 'le défenseur'} pour ce tour.`, 'system');
         });
-        
+
         // Réception d'une attaque
         socket.on('incoming-attack', (data) => {
             incomingAttack = data;
-            
+
             addMessage(`${data.attacker} vous attaque avec ${data.attackName} pour ${data.damage} points de dégâts potentiels !`, 'attack');
             addMessage('Choisissez une défense !', 'system');
-            
+
             // Activer les boutons de défense
             Array.from(defenseButtons.querySelectorAll('button')).forEach(btn => {
                 btn.disabled = false;
             });
         });
-        
+
         // Confirmation d'envoi d'attaque
         socket.on('attack-sent', (data) => {
             addMessage(`Vous avez attaqué avec ${data.attackName} pour ${data.damage} points de dégâts potentiels.`, 'attack');
             addMessage('En attente de la défense de l\'adversaire...', 'system');
         });
-        
+
         // Résultat de la défense
         socket.on('defense-result', (data) => {
             if (data.yourHp !== undefined) {
@@ -640,47 +642,47 @@
                 addMessage(`Votre attaque inflige ${data.finalDamage} points de dégâts. Il reste ${data.defenderHp} PV à l'adversaire.`, 'system');
             }
         });
-        
+
         // Changement de rôle
         socket.on('role-change', (data) => {
             myRole = data.role;
             updateInterface();
         });
-        
+
         // Victoire
         socket.on('victory', (data) => {
             waitingScreen.style.display = 'none';
             gameArea.style.display = 'none';
             resultScreen.style.display = 'block';
-            
+
             victoryMessage.style.display = 'block';
             defeatMessage.style.display = 'none';
         });
-        
+
         // Défaite
         socket.on('defeat', (data) => {
             waitingScreen.style.display = 'none';
             gameArea.style.display = 'none';
             resultScreen.style.display = 'block';
-            
+
             victoryMessage.style.display = 'none';
             defeatMessage.style.display = 'block';
         });
-        
+
         // Adversaire déconnecté
         socket.on('opponent-left', () => {
             addMessage('Votre adversaire s\'est déconnecté. Vous avez gagné par forfait.', 'system');
-            
+
             setTimeout(() => {
                 waitingScreen.style.display = 'none';
                 gameArea.style.display = 'none';
                 resultScreen.style.display = 'block';
-                
+
                 victoryMessage.style.display = 'block';
                 defeatMessage.style.display = 'none';
             }, 2000);
         });
-        
+
         // Bouton pour rejouer
         playAgainBtn.addEventListener('click', () => {
             // Rafraîchir la page
@@ -688,4 +690,5 @@
         });
     </script>
 </body>
+
 </html>

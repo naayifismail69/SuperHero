@@ -246,6 +246,15 @@
             color: #e74c3c;
             font-size: 24px;
         }
+        .console-header {
+            text-align: center;
+            padding: 20px;
+            background-color: #202020;
+            margin-top: 20px;
+            border-radius: 10px;
+            justify-content: center;
+            width: 100%;
+        }
     </style>
 </head>
 <body>
@@ -346,6 +355,9 @@
                 <div id="opponentRole">Rôle: -</div>
             </div>
             
+            <header class="console-header">
+                <h1>Console</h1>
+            </header>
             <div class="action-area">
                 <div class="message-log" id="messageLog"></div>
                 
@@ -380,7 +392,7 @@
     
     <script>
         // Établir une connexion avec le serveur
-        const socket = io("http://localhost:3000", {
+        const socket = io("http:localhost:3000", {
             transports: ['websocket']
         });
         
@@ -594,7 +606,7 @@
             imgElement.src = `/images/${myHero.images.md}`;
             imgElement.alt = myHero.name;
             imgElement.onerror = () => {
-                yourHeroImage.innerHTML = `<div>${myHero.name}</div>`;
+                yourHeroImage.innerHTML = `<img src="https://cdn.jsdelivr.net/gh/rtomczak/superhero-api@0.3.0/api/images/sm/${myHero.slug}.jpg" alt="">`;
             };
             yourHeroImage.innerHTML = '';
             yourHeroImage.appendChild(imgElement);
@@ -706,6 +718,7 @@
         
         // Adversaire déconnecté
         socket.on('opponent-left', () => {
+            console.log('User connected');
             addMessage('Votre adversaire s\'est déconnecté. Vous avez gagné par forfait.', 'system');
             
             setTimeout(() => {
