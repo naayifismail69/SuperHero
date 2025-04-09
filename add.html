@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Jeu de Superhéros</title>
+    
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -85,6 +86,17 @@
             flex-grow: 1;
         }
 
+        .stats-row {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .stat-column {
+            flex: 1;
+        }
+
         .stat-bar {
             height: 20px;
             background-color: #303030;
@@ -146,7 +158,7 @@
             background-color: #202020;
             border-radius: 10px;
             padding: 20px;
-            margin-top: 20px;
+            margin-top: 2px;
             width: 100%;
         }
 
@@ -191,36 +203,41 @@
             overflow-y: auto;
         }
 
-        button {
+        .action-select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            background-color: #404040;
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+
+        .action-btn {
             background-color: #3498db;
             color: white;
             border: none;
             padding: 10px 15px;
             border-radius: 5px;
             cursor: pointer;
-            margin: 5px 0;
+            margin-top: 10px;
             width: 100%;
-            text-align: left;
             transition: background-color 0.2s;
         }
 
-        button:hover {
-            background-color: #2980b9;
-        }
-
-        button.attack-btn {
+        .attack-btn {
             background-color: #e74c3c;
         }
 
-        button.attack-btn:hover {
+        .attack-btn:hover {
             background-color: #c0392b;
         }
 
-        button.defense-btn {
+        .defense-btn {
             background-color: #2ecc71;
         }
 
-        button.defense-btn:hover {
+        .defense-btn:hover {
             background-color: #27ae60;
         }
 
@@ -262,103 +279,164 @@
         </div>
 
         <div class="game-area" id="gameArea" style="display: none;">
-            <div class="hero-card" id="yourHeroCard">
-                <!--h2>Héros</h2-->
+            <div class="hero-card" id="yourHeroCard" >
                 <div class="hero-info">
                     <div class="hero-image" id="yourHeroImage">
                         <div id="yourHeroPlaceholder">Image non disponible</div>
                     </div>
-                    <div class="hero-stats">
-                        <!--h3>Attaquant: </h3-->
+                    <div class="hero-stats" style="width: 100%;">
                         <h3 id="yourHeroName">Nom du héros</h3>
-                        <div class="stat-bar health-bar">
+                        <div class="stat-bar health-bar" id="healthid" >
                             <div class="stat-bar-fill" id="yourHealthFill" style="width: 100%"></div>
                             <div class="stat-value" id="yourHealthValue">1000 PV</div>
                         </div>
-                        <div class="stat-bar intelligence-bar">
-                            <div class="stat-bar-fill" id="yourIntelligenceFill" style="width: 0%"></div>
-                            <div class="stat-value" id="yourIntelligenceValue">0</div>
+                        
+                        <!-- Stats disposées en 2 colonnes -->
+                        <div class="stats-row" style="width: 100%;">
+                            <div class="stat-column">
+                                <label for="intel" >Intelligence</label>
+                                <div class="stat-bar intelligence-bar" id="intel">
+                                    <div class="stat-bar-fill" id="yourIntelligenceFill" style="width: 0%"></div>
+                                    <div class="stat-value" id="yourIntelligenceValue">0</div>
+                                </div>
+                            </div>
+                            <div class="stat-column">
+                                <label for="force">Strength</label>
+                                <div class="stat-bar strength-bar" id="force">
+                                    <div class="stat-bar-fill" id="yourStrengthFill" style="width: 0%"></div>
+                                    <div class="stat-value" id="yourStrengthValue">0</div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="stat-bar strength-bar">
-                            <div class="stat-bar-fill" id="yourStrengthFill" style="width: 0%"></div>
-                            <div class="stat-value" id="yourStrengthValue">0</div>
+                        
+                        <div class="stats-row">
+                            <div class="stat-column">
+                                <label for="Speed">Speed</label>
+                                <div class="stat-bar speed-bar" id="Speed">
+                                    <div class="stat-bar-fill" id="yourSpeedFill" style="width: 0%"></div>
+                                    <div class="stat-value" id="yourSpeedValue">0</div>
+                                </div>
+                            </div>
+                            <div class="stat-column">
+                                <label for="durability">Durability</label>
+                                <div class="stat-bar durability-bar" id="durability">
+                                    <div class="stat-bar-fill" id="yourDurabilityFill" style="width: 0%"></div>
+                                    <div class="stat-value" id="yourDurabilityValue">0</div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="stat-bar speed-bar">
-                            <div class="stat-bar-fill" id="yourSpeedFill" style="width: 0%"></div>
-                            <div class="stat-value" id="yourSpeedValue">0</div>
-                        </div>
-                        <div class="stat-bar durability-bar">
-                            <div class="stat-bar-fill" id="yourDurabilityFill" style="width: 0%"></div>
-                            <div class="stat-value" id="yourDurabilityValue">0</div>
-                        </div>
-                        <div class="stat-bar power-bar">
-                            <div class="stat-bar-fill" id="yourPowerFill" style="width: 0%"></div>
-                            <div class="stat-value" id="yourPowerValue">0</div>
-                        </div>
-                        <div class="stat-bar combat-bar">
-                            <div class="stat-bar-fill" id="yourCombatFill" style="width: 0%"></div>
-                            <div class="stat-value" id="yourCombatValue">0</div>
+                        
+                        <div class="stats-row">
+                            <div class="stat-column">
+                                <label for="power">Power</label>
+                                <div class="stat-bar power-bar" id="power">
+                                    <div class="stat-bar-fill" id="yourPowerFill" style="width: 0%"></div>
+                                    <div class="stat-value" id="yourPowerValue">0</div>
+                                </div>
+                            </div>
+                            <div class="stat-column">
+                                <label for="combat">Combat</label>
+                                <div class="stat-bar combat-bar" id="combat">
+                                    <div class="stat-bar-fill" id="yourCombatFill" style="width: 0%"></div>
+                                    <div class="stat-value" id="yourCombatValue">0</div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
                 <div id="yourRole">Rôle: -</div>
             </div>
 
-            <div class="hero-card" id="opponentHeroCard">
-                <!--h2>Adversaire</h2-->
+            <div class="hero-card" id="opponentHeroCard" >
                 <div class="hero-info">
-                    <div class="hero-image" id="opponentHeroImage">
+                    <div class="hero-image" id="opponentHeroImage" >
                         <div id="opponentHeroPlaceholder">Image non disponible</div>
                     </div>
-                    <div class="hero-stats">
-                        <!--h3>Adversaire: </h3-->
+                    <div class="hero-stats" style="width: 100%;">
                         <h3 id="opponentHeroName">Nom du héros</h3>
                         <div class="stat-bar health-bar">
                             <div class="stat-bar-fill" id="opponentHealthFill" style="width: 100%"></div>
                             <div class="stat-value" id="opponentHealthValue">1000 PV</div>
                         </div>
-                        <div class="stat-bar intelligence-bar">
-                            <div class="stat-bar-fill" id="opponentIntelligenceFill" style="width: 0%"></div>
-                            <div class="stat-value" id="opponentIntelligenceValue">0</div>
+                        
+                        <!-- Stats disposées en 2 colonnes -->
+                        <div class="stats-row">
+                            <div class="stat-column">
+                                <label for="opp-intel">Intelligence</label>
+                                <div class="stat-bar intelligence-bar" id="opp-intel">
+                                    <div class="stat-bar-fill" id="opponentIntelligenceFill" style="width: 0%"></div>
+                                    <div class="stat-value" id="opponentIntelligenceValue">0</div>
+                                </div>
+                            </div>
+                            <div class="stat-column">
+                                <label for="opp-strength">Strength</label>
+                                <div class="stat-bar strength-bar" id="opp-strength">
+                                    <div class="stat-bar-fill" id="opponentStrengthFill" style="width: 0%"></div>
+                                    <div class="stat-value" id="opponentStrengthValue">0</div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="stat-bar strength-bar">
-                            div.labe
-                            <div class="stat-bar-fill" id="opponentStrengthFill" style="width: 0%"></div>
-                            <div class="stat-value" id="opponentStrengthValue">0</div>
+                        
+                        <div class="stats-row">
+                            <div class="stat-column">
+                                <label for="opp-speed">Speed</label>
+                                <div class="stat-bar speed-bar" id="opp-speed">
+                                    <div class="stat-bar-fill" id="opponentSpeedFill" style="width: 0%"></div>
+                                    <div class="stat-value" id="opponentSpeedValue">0</div>
+                                </div>
+                            </div>
+                            <div class="stat-column">
+                                <label for="opp-durability">Durability</label>
+                                <div class="stat-bar durability-bar" id="opp-durability">
+                                    <div class="stat-bar-fill" id="opponentDurabilityFill" style="width: 0%"></div>
+                                    <div class="stat-value" id="opponentDurabilityValue">0</div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="stat-bar speed-bar">
-                            <div class="stat-bar-fill" id="opponentSpeedFill" style="width: 0%"></div>
-                            <div class="stat-value" id="opponentSpeedValue">0</div>
-                        </div>
-                        <div class="stat-bar durability-bar">
-                            <div class="stat-bar-fill" id="opponentDurabilityFill" style="width: 0%"></div>
-                            <div class="stat-value" id="opponentDurabilityValue">0</div>
-                        </div>
-                        <div class="stat-bar power-bar">
-                            <div class="stat-bar-fill" id="opponentPowerFill" style="width: 0%"></div>
-                            <div class="stat-value" id="opponentPowerValue">0</div>
-                        </div>
-                        <div class="stat-bar combat-bar">
-                            <div class="stat-bar-fill" id="opponentCombatFill" style="width: 0%"></div>
-                            <div class="stat-value" id="opponentCombatValue">0</div>
+                        
+                        <div class="stats-row">
+                            <div class="stat-column">
+                                <label for="opp-power">Power</label>
+                                <div class="stat-bar power-bar" id="opp-power">
+                                    <div class="stat-bar-fill" id="opponentPowerFill" style="width: 0%"></div>
+                                    <div class="stat-value" id="opponentPowerValue">0</div>
+                                </div>
+                            </div>
+                            <div class="stat-column">
+                                <label for="opp-combat">Combat</label>
+                                <div class="stat-bar combat-bar" id="opp-combat">
+                                    <div class="stat-bar-fill" id="opponentCombatFill" style="width: 0%"></div>
+                                    <div class="stat-value" id="opponentCombatValue">0</div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
                 <div id="opponentRole">Rôle: -</div>
             </div>
+      
+            <!-- <header style="width:100%">
+                <h1>Console</h1>
+            </header> -->
 
-            <div class="action-area">
-                <div class="message-log" id="messageLog"></div>
+            <div class="action-area" style="">
+                <div class="message-log" id="messageLog" style="padding-bottom: 0;"></div>
 
                 <div class="actions">
                     <div class="action-list" id="attacksList">
-                        <h3>Attaques</h3>
-                        <div id="attackButtons"></div>
+                        <h3 style="margin-top: 0;">Attaques</h3>
+                        <select class="form-select form-select-lg mb-3" id="attack_select" style="width: 100%; height: 40px;" >
+                            <option selected disabled>Choisir une attaque</option>
+                        </select>
+                        <button id="attack_button" class="action-btn attack-btn">Lancer l'attaque</button>
                     </div>
 
                     <div class="action-list" id="defensesList">
-                        <h3>Défenses</h3>
-                        <div id="defenseButtons"></div>
+                        <h3 style="margin-top: 0;">Défenses</h3>
+                        <select class="form-select form-select-lg mb-3" id="defense_select" style="width: 100%; height: 40px;">
+                            <option selected disabled>Choisir une défense</option>
+                        </select>
+                        <button id="defense_button" class="action-btn defense-btn">Utiliser la défense</button>
                     </div>
                 </div>
             </div>
@@ -377,14 +455,23 @@
         </div>
     </div>
 
+   
+
     <script src="https://cdn.socket.io/4.6.0/socket.io.min.js"></script>
 
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+    crossorigin="anonymous"></script>
+    
     <script>
         // Établir une connexion avec le serveur
         const socket = io("http://localhost:3000", {
             transports: ['websocket']
         });
-
+        
+        
+    
+        
         // Éléments DOM
         const waitingScreen = document.getElementById('waitingScreen');
         const gameArea = document.getElementById('gameArea');
@@ -406,8 +493,10 @@
         const opponentRole = document.getElementById('opponentRole');
 
         const messageLog = document.getElementById('messageLog');
-        const attackButtons = document.getElementById('attackButtons');
-        const defenseButtons = document.getElementById('defenseButtons');
+        const attackSelect = document.getElementById('attack_select');
+        const defenseSelect = document.getElementById('defense_select');
+        const attackButton = document.getElementById('attack_button');
+        const defenseButton = document.getElementById('defense_button');
 
         // Variables globales
         let myHero;
@@ -444,7 +533,7 @@
         // Fonction pour mettre à jour les barres de vie
         function updateHealthBar(hp, maxHp, element, fillElement) {
             const percentage = Math.max(0, (hp / maxHp) * 100);
-            element.textContent = `Health: ${hp} PV`;
+            element.textContent = `${hp} PV`;
             fillElement.style.width = `${percentage}%`;
         }
 
@@ -460,88 +549,88 @@
         // Fonction pour mettre à jour l'interface en fonction du rôle
         function updateInterface() {
             if (myRole === 'attacker') {
-                yourRole.textContent = 'Rôle: Attaquant';
-                opponentRole.textContent = 'Rôle: Défenseur';
+                yourRole.textContent = 'Attaquant';
+                opponentRole.textContent = 'Défenseur';
 
-                // Activer les boutons d'attaque, désactiver les boutons de défense
-                Array.from(attackButtons.querySelectorAll('button')).forEach(btn => {
-                    btn.disabled = false;
-                });
-
-                Array.from(defenseButtons.querySelectorAll('button')).forEach(btn => {
-                    btn.disabled = true;
-                });
+                // Activer le select d'attaque, désactiver celui de défense
+                attackSelect.disabled = false;
+                attackButton.disabled = false;
+                defenseSelect.disabled = true;
+                defenseButton.disabled = true;
 
                 addMessage('C\'est votre tour d\'attaquer !', 'system');
             } else {
-                yourRole.textContent = 'Rôle: Défenseur';
-                opponentRole.textContent = 'Rôle: Attaquant';
+                yourRole.textContent = 'Défenseur';
+                opponentRole.textContent = 'Attaquant';
 
-                // Désactiver les boutons d'attaque
-                Array.from(attackButtons.querySelectorAll('button')).forEach(btn => {
-                    btn.disabled = true;
-                });
+                // Désactiver le select d'attaque
+                attackSelect.disabled = true;
+                attackButton.disabled = true;
 
                 // Les boutons de défense seront activés lorsqu'une attaque arrive
-                Array.from(defenseButtons.querySelectorAll('button')).forEach(btn => {
-                    btn.disabled = true;
-                });
+                defenseSelect.disabled = true;
+                defenseButton.disabled = true;
 
                 addMessage('En attente de l\'attaque de l\'adversaire...', 'system');
             }
         }
 
-        // Générer les boutons d'attaque et de défense
-        function generateActionButtons() {
-            // Vider les conteneurs
-            attackButtons.innerHTML = '';
-            defenseButtons.innerHTML = '';
+        // Générer les options pour les selects d'attaque et de défense
+        function generateActionSelects() {
+            // Vider les selects
+            attackSelect.innerHTML = '<option selected disabled>Choisir une attaque</option>';
+            defenseSelect.innerHTML = '<option selected disabled>Choisir une défense</option>';
 
-            // Créer les boutons d'attaque
+            // Ajouter les options d'attaque
             attacks.forEach(attack => {
-                const button = document.createElement('button');
-                button.className = 'attack-btn';
-                button.textContent = `${attack.name} (${attack.superPower}, x${attack.modifier})`;
-                button.disabled = myRole !== 'attacker';
-
-                button.addEventListener('click', () => {
-                    socket.emit('attack', { attackName: attack.name });
-                    addMessage(`Vous utilisez ${attack.name} !`, 'attack');
-
-                    // Désactiver tous les boutons d'attaque après l'avoir utilisé
-                    Array.from(attackButtons.querySelectorAll('button')).forEach(btn => {
-                        btn.disabled = true;
-                    });
-                });
-
-                attackButtons.appendChild(button);
+                const option = document.createElement('option');
+                option.textContent = `${attack.name} (${attack.superPower}, x${attack.modifier})`;
+                option.value = attack.name;
+                attackSelect.appendChild(option);
             });
 
-            // Créer les boutons de défense
+            // Ajouter les options de défense
             defenses.forEach(defense => {
-                const button = document.createElement('button');
-                button.className = 'defense-btn';
-                button.textContent = `${defense.name} (${defense.superPower}, -${defense.reduction})`;
-                button.disabled = myRole !== 'defender' || !incomingAttack;
+                const option = document.createElement('option');
+                option.textContent = `${defense.name} (${defense.superPower}, x${defense.modifier})`;
+                option.value = defense.name;
+                defenseSelect.appendChild(option);
+            });
 
-                button.addEventListener('click', () => {
+            // Ajouter les événements aux boutons
+            attackButton.addEventListener('click', () => {
+                const selectedAttack = attackSelect.value;
+                if (selectedAttack && selectedAttack !== 'Choisir une attaque') {
+                    socket.emit('attack', { attackName: selectedAttack });
+                    addMessage(`Vous utilisez ${selectedAttack} !`, 'attack');
+
+                    // Désactiver le bouton et le select après l'avoir utilisé
+                    attackSelect.disabled = true;
+                    attackButton.disabled = true;
+                } else {
+                    addMessage('Veuillez choisir une attaque !', 'system');
+                }
+            });
+
+            defenseButton.addEventListener('click', () => {
+                const selectedDefense = defenseSelect.value;
+                if (selectedDefense && selectedDefense !== 'Choisir une défense' && incomingAttack) {
                     socket.emit('defend', {
-                        defenseName: defense.name,
+                        defenseName: selectedDefense,
                         incomingDamage: incomingAttack.damage
                     });
 
-                    addMessage(`Vous utilisez ${defense.name} contre ${incomingAttack.attackName} !`, 'defense');
+                    addMessage(`Vous utilisez ${selectedDefense} contre ${incomingAttack.attackName} !`, 'defense');
 
-                    // Désactiver tous les boutons de défense après l'avoir utilisé
-                    Array.from(defenseButtons.querySelectorAll('button')).forEach(btn => {
-                        btn.disabled = true;
-                    });
+                    // Désactiver le bouton et le select après l'avoir utilisé
+                    defenseSelect.disabled = true;
+                    defenseButton.disabled = true;
 
                     // Réinitialiser l'attaque entrante
                     incomingAttack = null;
-                });
-
-                defenseButtons.appendChild(button);
+                } else {
+                    addMessage('Veuillez choisir une défense !', 'system');
+                }
             });
         }
 
@@ -553,11 +642,11 @@
             defenses = data.defenses;
 
             // Mettre à jour l'interface avec les informations du héros
-            yourHeroName.textContent = `Attaquant: ${myHero.name}`;;
+            yourHeroName.textContent = myHero.name;
             updateStatBars(myHero, 'your');
 
-            // Générer les boutons d'attaque et de défense
-            generateActionButtons();
+            // Générer les options des selects d'attaque et de défense
+            generateActionSelects();
 
             // Tentative de charger l'image du héros
             const imgElement = document.createElement('img');
@@ -583,7 +672,7 @@
             opponentHero = data.opponent.hero;
 
             // Mettre à jour l'interface avec les informations de l'adversaire
-            opponentHeroName.textContent = `Adversaire: ${opponentHero.name}`;
+            opponentHeroName.textContent = opponentHero.name;
             updateStatBars(opponentHero, 'opponent');
             updateHealthBar(data.opponent.hp, 1000, opponentHealthValue, opponentHealthFill);
 
@@ -617,10 +706,9 @@
             addMessage(`${data.attacker} vous attaque avec ${data.attackName} pour ${data.damage} points de dégâts potentiels !`, 'attack');
             addMessage('Choisissez une défense !', 'system');
 
-            // Activer les boutons de défense
-            Array.from(defenseButtons.querySelectorAll('button')).forEach(btn => {
-                btn.disabled = false;
-            });
+            // Activer le select de défense
+            defenseSelect.disabled = false;
+            defenseButton.disabled = false;
         });
 
         // Confirmation d'envoi d'attaque
@@ -650,45 +738,46 @@
             updateInterface();
         });
 
-        // Victoire
-        socket.on('victory', (data) => {
-            waitingScreen.style.display = 'none';
-            gameArea.style.display = 'none';
-            resultScreen.style.display = 'block';
-
-            victoryMessage.style.display = 'block';
-            defeatMessage.style.display = 'none';
-        });
-
-        // Défaite
-        socket.on('defeat', (data) => {
-            waitingScreen.style.display = 'none';
-            gameArea.style.display = 'none';
-            resultScreen.style.display = 'block';
-
-            victoryMessage.style.display = 'none';
-            defeatMessage.style.display = 'block';
-        });
-
-        // Adversaire déconnecté
-        socket.on('opponent-left', () => {
-            addMessage('Votre adversaire s\'est déconnecté. Vous avez gagné par forfait.', 'system');
-
-            setTimeout(() => {
+       // Victoire
+       socket.on('victory', (data) => {
                 waitingScreen.style.display = 'none';
                 gameArea.style.display = 'none';
                 resultScreen.style.display = 'block';
 
                 victoryMessage.style.display = 'block';
                 defeatMessage.style.display = 'none';
-            }, 2000);
-        });
+            });
 
-        // Bouton pour rejouer
-        playAgainBtn.addEventListener('click', () => {
-            // Rafraîchir la page
-            window.location.reload();
-        });
+            // Défaite
+            socket.on('defeat', (data) => {
+                waitingScreen.style.display = 'none';
+                gameArea.style.display = 'none';
+                resultScreen.style.display = 'block';
+
+                victoryMessage.style.display = 'none';
+                defeatMessage.style.display = 'block';
+            });
+
+            // Adversaire déconnecté
+            socket.on('opponent-left', () => {
+                addMessage('Votre adversaire s\'est déconnecté. Vous avez gagné par forfait.', 'system');
+
+                setTimeout(() => {
+                    waitingScreen.style.display = 'none';
+                    gameArea.style.display = 'none';
+                    resultScreen.style.display = 'block';
+
+                    victoryMessage.style.display = 'block';
+                    defeatMessage.style.display = 'none';
+                }, 2000);
+            });
+
+            // Bouton pour rejouer
+            playAgainBtn.addEventListener('click', () => {
+                // Rafraîchir la page
+                window.location.reload();
+            });
+      
     </script>
 </body>
 
