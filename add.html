@@ -272,6 +272,10 @@
     <audio src="./attack.wav" id="attack_sound"></audio>
     <audio src="./defense.mp3" id="defense_sound"></audio>
     <audio src="./combat.mp3" id="debut_combat"></audio>
+    <audio src="./gameover.mp3" id="gameover"></audio>
+    <audio src="./winner.mp3" id="winner"></audio>
+    
+
     <div class="container">
         <header>
             <h1>Bataille de Superhéros</h1>
@@ -501,9 +505,14 @@
         const defenseSelect = document.getElementById('defense_select');
         const attackButton = document.getElementById('attack_button');
         const defenseButton = document.getElementById('defense_button');
+
+        //Chargement des sons 
         const attacksound = document.getElementById('attack_sound'); 
         const defensesound = document.getElementById('defense_sound'); 
         const debutcombat = document.getElementById('debut_combat'); 
+        const winner = document.getElementById('winner'); 
+        const gameover = document.getElementById('gameover'); 
+        
         
 
         // Variables globales
@@ -543,6 +552,10 @@
             const percentage = Math.max(0, (hp / maxHp) * 100);
             element.textContent = `${hp} PV`;
             fillElement.style.width = `${percentage}%`;
+            if (percentage< 50){
+                fillElement.style.backgroundColor ='#bd1f1f';
+            }
+          
         }
 
         // Fonction pour ajouter un message au journal
@@ -758,6 +771,7 @@
 
                 victoryMessage.style.display = 'block';
                 defeatMessage.style.display = 'none';
+                winner.play();
             });
 
             // Défaite
@@ -768,6 +782,7 @@
 
                 victoryMessage.style.display = 'none';
                 defeatMessage.style.display = 'block';
+                gameover.play()
             });
 
             // Adversaire déconnecté
