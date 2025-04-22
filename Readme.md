@@ -31,6 +31,8 @@ Bienvenue dans le projet **SuperHero** ! Ce projet est conçu pour explorer et g
     ```
 2. Ouvrez votre navigateur et accédez à `http://localhost:3000`.
 
+3. Ouvrez le fichier index.html
+
 ## Contribution
 
 Les contributions sont les bienvenues ! Veuillez suivre ces étapes :
@@ -56,6 +58,6 @@ Ce projet est sous licence [MIT](LICENSE).
 
 ## Auteurs
 
-- **Votre Nom** - Créateur principal
+- **IsmailNaayif** - Créateur principal
 
 Merci d'utiliser **SuperHero** ! 🚀
