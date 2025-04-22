@@ -5,7 +5,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Jeu de Superhéros</title>
-    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap');
+
+        .oswald {
+            font-family: "Oswald", sans-serif;
+            font-optical-sizing: auto;
+
+            font-style: normal;
+        }
+    </style>
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -25,7 +34,7 @@
         header {
             text-align: center;
             padding: 20px;
-            background-color: #202020;
+            background-color: #3c7dd8;
             margin-bottom: 20px;
             border-radius: 10px;
         }
@@ -51,7 +60,7 @@
         }
 
         .hero-card {
-            background-color: #202020;
+            background-color: #a99e9e;
             border-radius: 10px;
             padding: 10px;
             width: 47%;
@@ -155,7 +164,7 @@
         }
 
         .action-area {
-            background-color: #202020;
+            background-color: #a89e9e;
             border-radius: 10px;
             padding: 20px;
             margin-top: 2px;
@@ -268,7 +277,7 @@
 </head>
 
 <body>
-    
+
     <audio src="./attack.wav" id="attack_sound"></audio>
     <audio src="./defense.mp3" id="defense_sound"></audio>
     <audio src="./combat.mp3" id="debut_combat"></audio>
@@ -283,22 +292,22 @@
         </div>
 
         <div class="game-area" id="gameArea" style="display: none;">
-            <div class="hero-card" id="yourHeroCard" >
+            <div class="hero-card" id="yourHeroCard">
                 <div class="hero-info">
                     <div class="hero-image" id="yourHeroImage">
                         <div id="yourHeroPlaceholder">Image non disponible</div>
                     </div>
                     <div class="hero-stats" style="width: 100%;">
                         <h3 id="yourHeroName">Nom du héros</h3>
-                        <div class="stat-bar health-bar" id="healthid" >
+                        <div class="stat-bar health-bar" id="healthid">
                             <div class="stat-bar-fill" id="yourHealthFill" style="width: 100%"></div>
                             <div class="stat-value" id="yourHealthValue">1000 PV</div>
                         </div>
-                        
+
                         <!-- Stats disposées en 2 colonnes -->
                         <div class="stats-row" style="width: 100%;">
                             <div class="stat-column">
-                                <label for="intel" >Intelligence</label>
+                                <label for="intel">Intelligence</label>
                                 <div class="stat-bar intelligence-bar" id="intel">
                                     <div class="stat-bar-fill" id="yourIntelligenceFill" style="width: 0%"></div>
                                     <div class="stat-value" id="yourIntelligenceValue">0</div>
@@ -312,7 +321,7 @@
                                 </div>
                             </div>
                         </div>
-                        
+
                         <div class="stats-row">
                             <div class="stat-column">
                                 <label for="Speed">Speed</label>
@@ -329,7 +338,7 @@
                                 </div>
                             </div>
                         </div>
-                        
+
                         <div class="stats-row">
                             <div class="stat-column">
                                 <label for="power">Power</label>
@@ -351,9 +360,9 @@
                 <div id="yourRole">Rôle: -</div>
             </div>
 
-            <div class="hero-card" id="opponentHeroCard" >
+            <div class="hero-card" id="opponentHeroCard">
                 <div class="hero-info">
-                    <div class="hero-image" id="opponentHeroImage" >
+                    <div class="hero-image" id="opponentHeroImage">
                         <div id="opponentHeroPlaceholder">Image non disponible</div>
                     </div>
                     <div class="hero-stats" style="width: 100%;">
@@ -362,7 +371,7 @@
                             <div class="stat-bar-fill" id="opponentHealthFill" style="width: 100%"></div>
                             <div class="stat-value" id="opponentHealthValue">1000 PV</div>
                         </div>
-                        
+
                         <!-- Stats disposées en 2 colonnes -->
                         <div class="stats-row">
                             <div class="stat-column">
@@ -380,7 +389,7 @@
                                 </div>
                             </div>
                         </div>
-                        
+
                         <div class="stats-row">
                             <div class="stat-column">
                                 <label for="opp-speed">Speed</label>
@@ -397,7 +406,7 @@
                                 </div>
                             </div>
                         </div>
-                        
+
                         <div class="stats-row">
                             <div class="stat-column">
                                 <label for="opp-power">Power</label>
@@ -418,7 +427,7 @@
                 </div>
                 <div id="opponentRole">Rôle: -</div>
             </div>
-      
+
             <!-- <header style="width:100%">
                 <h1>Console</h1>
             </header> -->
@@ -429,7 +438,8 @@
                 <div class="actions">
                     <div class="action-list" id="attacksList">
                         <h3 style="margin-top: 0;">Attaques</h3>
-                        <select class="form-select form-select-lg mb-3" id="attack_select" style="width: 100%; height: 40px;" >
+                        <select class="form-select form-select-lg mb-3" id="attack_select"
+                            style="width: 100%; height: 40px;">
                             <option selected disabled>Choisir une attaque</option>
                         </select>
                         <button id="attack_button" class="action-btn attack-btn">Lancer l'attaque</button>
@@ -437,7 +447,8 @@
 
                     <div class="action-list" id="defensesList">
                         <h3 style="margin-top: 0;">Défenses</h3>
-                        <select class="form-select form-select-lg mb-3" id="defense_select" style="width: 100%; height: 40px;">
+                        <select class="form-select form-select-lg mb-3" id="defense_select"
+                            style="width: 100%; height: 40px;">
                             <option selected disabled>Choisir une défense</option>
                         </select>
                         <button id="defense_button" class="action-btn defense-btn">Utiliser la défense</button>
@@ -459,23 +470,23 @@
         </div>
     </div>
 
-   
+
 
     <script src="https://cdn.socket.io/4.6.0/socket.io.min.js"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-    crossorigin="anonymous"></script>
-    
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+
     <script>
         // Établir une connexion avec le serveur
         const socket = io("http://localhost:3000", {
             transports: ['websocket']
         });
-        
-        
-    
-        
+
+
+
+
         // Éléments DOM
         const waitingScreen = document.getElementById('waitingScreen');
         const gameArea = document.getElementById('gameArea');
@@ -501,10 +512,10 @@
         const defenseSelect = document.getElementById('defense_select');
         const attackButton = document.getElementById('attack_button');
         const defenseButton = document.getElementById('defense_button');
-        const attacksound = document.getElementById('attack_sound'); 
-        const defensesound = document.getElementById('defense_sound'); 
-        const debutcombat = document.getElementById('debut_combat'); 
-        
+        const attacksound = document.getElementById('attack_sound');
+        const defensesound = document.getElementById('defense_sound');
+        const debutcombat = document.getElementById('debut_combat');
+
 
         // Variables globales
         let myHero;
@@ -707,7 +718,7 @@
             waitingScreen.style.display = 'none';
             gameArea.style.display = 'flex';
             resultScreen.style.display = 'none';
-            
+
 
             // Ajouter un message de début de jeu
             addMessage(`La partie commence ! Vous êtes ${myHero.name} et vous affrontez ${opponentHero.name}.`, 'system');
@@ -753,46 +764,46 @@
             updateInterface();
         });
 
-       // Victoire
-       socket.on('victory', (data) => {
+        // Victoire
+        socket.on('victory', (data) => {
+            waitingScreen.style.display = 'none';
+            gameArea.style.display = 'none';
+            resultScreen.style.display = 'block';
+
+            victoryMessage.style.display = 'block';
+            defeatMessage.style.display = 'none';
+        });
+
+        // Défaite
+        socket.on('defeat', (data) => {
+            waitingScreen.style.display = 'none';
+            gameArea.style.display = 'none';
+            resultScreen.style.display = 'block';
+
+            victoryMessage.style.display = 'none';
+            defeatMessage.style.display = 'block';
+        });
+
+        // Adversaire déconnecté
+        socket.on('opponent-left', () => {
+            addMessage('Votre adversaire s\'est déconnecté. Vous avez gagné par forfait.', 'system');
+
+            setTimeout(() => {
                 waitingScreen.style.display = 'none';
                 gameArea.style.display = 'none';
                 resultScreen.style.display = 'block';
 
                 victoryMessage.style.display = 'block';
                 defeatMessage.style.display = 'none';
-            });
+            }, 2000);
+        });
 
-            // Défaite
-            socket.on('defeat', (data) => {
-                waitingScreen.style.display = 'none';
-                gameArea.style.display = 'none';
-                resultScreen.style.display = 'block';
+        // Bouton pour rejouer
+        playAgainBtn.addEventListener('click', () => {
+            // Rafraîchir la page
+            window.location.reload();
+        });
 
-                victoryMessage.style.display = 'none';
-                defeatMessage.style.display = 'block';
-            });
-
-            // Adversaire déconnecté
-            socket.on('opponent-left', () => {
-                addMessage('Votre adversaire s\'est déconnecté. Vous avez gagné par forfait.', 'system');
-
-                setTimeout(() => {
-                    waitingScreen.style.display = 'none';
-                    gameArea.style.display = 'none';
-                    resultScreen.style.display = 'block';
-
-                    victoryMessage.style.display = 'block';
-                    defeatMessage.style.display = 'none';
-                }, 2000);
-            });
-
-            // Bouton pour rejouer
-            playAgainBtn.addEventListener('click', () => {
-                // Rafraîchir la page
-                window.location.reload();
-            });
-      
     </script>
 </body>
 

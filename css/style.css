@@ -239,8 +239,8 @@
      text-decoration: underline !important;
 }
  .main_bt:hover, .main_bt:focus {
-     background: #ad2101;
-     border: solid #ad2101 5px;
+     background: #3c7dd8;
+     border: solid #3c7dd8 5px;
      color: #fff;
 }
 /**-- list icon --**/
@@ -315,7 +315,7 @@
      visibility: visible;
 }
  .top_awro {
-     background: #ee4a79 none repeat scroll 0 0;
+     background: #3c7dd8 none repeat scroll 0 0;
      cursor: pointer;
      padding: 6px 8px;
      position: fixed;
@@ -330,7 +330,7 @@
      transition: all 0.5s ease;
 }
  .sale_pro {
-     background: #f25252 !important;
+     background: #3c7dd8 !important;
 }
  .margin_top_50 {
      margin-top: 50px;
@@ -355,11 +355,11 @@
 }
  .menu-area-main li:hover a, .menu-area-main li:focus a {
      color: #fff;
-     background: #f00;
+     background: #3c7dd8;
 }
  .menu-area-main li.active a {
      color: #fff;
-     background: #f00;
+     background: #3c7dd8;
 }
  .right_cart_section {
      float: right;
@@ -882,7 +882,7 @@
 }
  .main-menu ul li:first-child {
      margin-left: 0;
-     background: #f00;
+     background: #3c7dd8;
 }
  .main-menu ul>li>ul {
      opacity: 0;
@@ -966,12 +966,12 @@
      padding: 0px 20px;
 }
  .button_login {
-    background-color: #f00;
+    background-color: #3c7dd8;
      padding: 4px 12px;
      border-radius: 5px;
 }
  .button_login:hover {
-    background-color: #ff0000b5;
+    background-color: #3c7dd8;
 }
  .padding_left0 {
     padding-left: 0px;
@@ -1060,12 +1060,12 @@
      font-size: 16px;
      text-transform: uppercase;
      background-color: #fff;
-     color: #ff0000;
+     color: #3c7dd8;
      padding: 10px 40px;
      display: inline-block;
 }
  .text-bg a:hover {
-     background-color: #ff0000;
+     background-color: #3c7dd8;
      color: #fff;
 }
  .text-img figure {margin: 0;}
@@ -1149,8 +1149,8 @@
      display: inline-block;
 }
  .our .Games a:hover {
-     background-color: #ff0000;
-     border: #ff0000 solid 1px;
+     background-color: #3c7dd8;
+     border: #3c7dd8 solid 1px;
      color: #fff;
 }
 /** end our section **/
@@ -1175,7 +1175,7 @@
     width: 100%;
 }
  .border_right {
-    border-right: #f00 solid 6px;
+    border-right: #3c7dd8 solid 6px;
 }
  .box_text {
      max-width: 531px;
@@ -1199,8 +1199,8 @@
      margin-top: 11px;
 }
  .box_text a:hover {
-     background-color: #ff0000;
-     border: #ff0000 solid 1px;
+     background-color: #3c7dd8;
+     border: #3c7dd8 solid 1px;
      color: #fff;
 }
 /** end We_are section **/
@@ -1249,7 +1249,7 @@
      margin-bottom: 60px;
 }
  .contact .contact_bg {
-     background: #ff0000;
+     background: #3c7dd8;
      width: 100%;
      height: 100%;
      padding: 0;
@@ -1285,7 +1285,7 @@
  .contact .contact_bg .send:hover {
      background-color: #fff;
 border: #fff solid 1px;
-color: #f00;
+color: #3c7dd8;
 }
 /** end contact section **/
 /** testimonial **/
@@ -1369,7 +1369,7 @@ color: #f00;
      text-transform: uppercase;
      padding-bottom: 20px;
      padding-bottom: 3px;
-     border-bottom: #ff0000 solid 4px;
+     border-bottom: #3c7dd8 solid 4px;
      margin-bottom: 20px;
      width: 160px;
 }
@@ -1391,9 +1391,9 @@ color: #f00;
 }
  .submit {
     padding: 14px 45px;
-     border: #f00 solid 1px;
-     background: #f00;
-     color: #fff;
+     border: #3c7dd8 solid 1px;
+     background: #3c7dd8;
+     color: #3c7dd8;
      margin-left: -5px;
      font-weight: 500;
      font-size: 19px;
@@ -1403,7 +1403,7 @@ color: #f00;
  .submit:hover {
      background: #d2cece;
      border: #d2cece solid 1px;
-     color: #f00;
+     color: #3c7dd8;
 }
  ul.social_link {
     padding-bottom: 35px;
@@ -1419,7 +1419,7 @@ color: #f00;
      height: 30px;
 }
  ul.social_link li a img:hover {
-     background-color: #fe0000;
+     background-color: #3c7dd8;
      border-radius: 20px;
 }
  ul.Menu_footer li{
@@ -1435,7 +1435,7 @@ color: #f00;
      margin-top: -27px;
 }
  ul.Menu_footer li a:hover{
-     color: #ff0000;
+     color: #3c7dd8;
 }
  ul.Links_footer {
      list-style: none;
@@ -1452,7 +1452,7 @@ color: #f00;
      margin-top: -27px;
 }
  ul.Links_footer li a:hover{
-     color: #ff0000;
+     color: #3c7dd8;
 }
  ul.Links_footer li {
      padding-bottom: 5px;
@@ -1487,7 +1487,7 @@ color: #f00;
      color: #000;
 }
  .copyright a:hover {
-     color: #f00;
+     color: #3c7dd8;
 }
 /** end footer **/
 /*--------------------------------------------------------------------- ener page css ---------------------------------------------------------------------*/
