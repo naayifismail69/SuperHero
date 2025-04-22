@@ -268,6 +268,10 @@
 </head>
 
 <body>
+    
+    <audio src="./attack.wav" id="attack_sound"></audio>
+    <audio src="./defense.mp3" id="defense_sound"></audio>
+    <audio src="./combat.mp3" id="debut_combat"></audio>
     <div class="container">
         <header>
             <h1>Bataille de Superhéros</h1>
@@ -497,6 +501,10 @@
         const defenseSelect = document.getElementById('defense_select');
         const attackButton = document.getElementById('attack_button');
         const defenseButton = document.getElementById('defense_button');
+        const attacksound = document.getElementById('attack_sound'); 
+        const defensesound = document.getElementById('defense_sound'); 
+        const debutcombat = document.getElementById('debut_combat'); 
+        
 
         // Variables globales
         let myHero;
@@ -602,6 +610,7 @@
 
             // Ajouter les événements aux boutons
             attackButton.addEventListener('click', () => {
+                attacksound.play()
                 const selectedAttack = attackSelect.value;
                 if (selectedAttack && selectedAttack !== 'Choisir une attaque') {
                     socket.emit('attack', { attackName: selectedAttack });
@@ -616,6 +625,7 @@
             });
 
             defenseButton.addEventListener('click', () => {
+                defensesound.play();
                 const selectedDefense = defenseSelect.value;
                 if (selectedDefense && selectedDefense !== 'Choisir une défense' && incomingAttack) {
                     socket.emit('defend', {
@@ -671,6 +681,7 @@
 
         // Début de la partie
         socket.on('game-start', (data) => {
+            debutcombat.play();
             myRole = data.role;
             opponentHero = data.opponent.hero;
 
@@ -696,6 +707,7 @@
             waitingScreen.style.display = 'none';
             gameArea.style.display = 'flex';
             resultScreen.style.display = 'none';
+            
 
             // Ajouter un message de début de jeu
             addMessage(`La partie commence ! Vous êtes ${myHero.name} et vous affrontez ${opponentHero.name}.`, 'system');
