@@ -452,9 +452,12 @@
 
 <body>
 
-    <audio src="./attack.wav" id="attack_sound"></audio>
-    <audio src="./defense.mp3" id="defense_sound"></audio>
-    <audio src="./combat.mp3" id="debut_combat"></audio>
+    <audio src="audio/attack.wav" id="attack_sound"></audio>
+    <audio src="audio/defense.mp3" id="defense_sound"></audio>
+    <audio src="audio/combat.mp3" id="debut_combat"></audio>
+    <audio src="audio/background_audio.mp3" id="background_audio"></audio>
+    <audio src="audio/victory.wav" id="victory"></audio>
+    <audio src="audio/gameover.mp3" id="gameover"></audio>
     <div class="container">
       
         <header class="header_scroll" style="position: relative;">
@@ -466,7 +469,7 @@
             </a>
         </header>
 
-        <div class="waiting-screen" id="waitingScreen">
+        <div class="waiting-screen" id="waitingScreen" style="width: 92%;">
             <h2>En attente d'un adversaire...</h2>
             <p>Un superhéros vous sera attribué lorsqu'un adversaire rejoindra la partie.</p>
         </div>
@@ -707,7 +710,16 @@
         const attacksound = document.getElementById('attack_sound');
         const defensesound = document.getElementById('defense_sound');
         const debutcombat = document.getElementById('debut_combat');
+        const gameover = document.getElementById('gameover');
+        const victory = document.getElementById('victory');
+        const backgroundaudio =  document.getElementById("background_audio");
 
+        backgroundaudio.loop = true; // Mettre la musique en boucle
+        backgroundaudio.volume = 0.1; // Ajuster le volume de la musique de fond
+        // Wait for user interaction
+document.addEventListener("click", () => {
+    backgroundaudio.play(); // Démarrer la musique de fond après interaction
+});
 
         // Variables globales
         let myHero;
@@ -806,7 +818,7 @@
             // Ajouter les options de défense
             defenses.forEach(defense => {
                 const option = document.createElement('option');
-                option.textContent = `${defense.name} (${defense.superPower}, x${defense.modifier})`;
+                option.textContent = `${defense.name} (${defense.superPower})`;
                 option.value = defense.name;
                 defenseSelect.appendChild(option);
             });
@@ -981,16 +993,22 @@
 
         // Victoire
         socket.on('victory', (data) => {
+            victory.play();
             waitingScreen.style.display = 'none';
             gameArea.style.display = 'none';
             resultScreen.style.display = 'block';
 
+
+
             victoryMessage.style.display = 'block';
             defeatMessage.style.display = 'none';
+
+            //display the victory
         });
 
         // Défaite
         socket.on('defeat', (data) => {
+            gameover.play();
             waitingScreen.style.display = 'none';
             gameArea.style.display = 'none';
             resultScreen.style.display = 'block';

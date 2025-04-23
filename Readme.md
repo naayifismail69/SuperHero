@@ -29,7 +29,7 @@ Bienvenue dans le projet **SuperHero** ! Ce projet est conçu pour explorer et g
     ```bash
     npm start
     ```
-2. Ouvrez votre navigateur et accédez à `http://localhost:3000`.
+2. Ouvrez votre navigateur et accédez à `http://localhost:3000`.(Optionnel)
 
 3. Ouvrez le fichier index.html
 
