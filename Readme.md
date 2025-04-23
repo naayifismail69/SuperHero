@@ -27,11 +27,11 @@ Bienvenue dans le projet **SuperHero** ! Ce projet est conçu pour explorer et g
 
 1. Lancez l'application :
     ```bash
-    npm start
+    node server.js
     ```
 2. Ouvrez votre navigateur et accédez à `http://localhost:3000`.(Optionnel)
 
-3. Ouvrez le fichier index.html
+3. Ouvrez le fichier home.html
 
 ## Contribution
 
