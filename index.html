@@ -63,7 +63,7 @@
             background-color: #a99e9e;
             border-radius: 10px;
             padding: 10px;
-            width: 47%;
+            width: 42%;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
             display: flex;
             flex-direction: row;
@@ -201,6 +201,7 @@
         .actions {
             display: flex;
             gap: 20px;
+            margin-bottom: 15px;
         }
 
         .action-list {
@@ -273,7 +274,180 @@
             color: #e74c3c;
             font-size: 24px;
         }
+
+        .battle-row {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 30px;
+            width: 100%;
+            flex-wrap: nowrap;
+        }
+
+        .vs-image {
+            width: 110px;
+            height: 110px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 100px;
+
+        }
+
+        .vs-image img {
+            max-width: 100%;
+            max-height: 100%;
+            border-radius: 30%;
+        }
+
+        .h1scroll {
+            /* position: absolute; */
+            /* white-space: nowrap; Empêche le texte de passer à la ligne */
+            animation: defilement 10s linear infinite;
+            /* Animation infinie */
+            overflow: hidden;
+        }
+
+        @keyframes defilement {
+            from {
+                transform: translateX(50%);
+            }
+
+            to {
+                transform: translateX(-50%);
+            }
+        }
+
+        
+
+        .fire-effect {
+            position: relative;
+            display: inline-block;
+        }
+
+        .fire-effect img {
+            width: 200px;
+            /* Ajustez la taille de votre image */
+            border-radius: 10px;
+            /* Si vous voulez un effet arrondi */
+        }
+
+        .fire-effect::before,
+        .fire-effect::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 10px;
+            background: radial-gradient(circle, rgba(255, 69, 0, 0.8) 25%, rgba(255, 140, 0, 0.6) 40%, transparent 70%);
+            animation: flame-animation 0.5s infinite alternate;
+            z-index: -1;
+        }
+
+        @keyframes flame-animation {
+            0% {
+                transform: scale(1);
+                filter: blur(5px);
+            }
+
+            100% {
+                transform: scale(1.1);
+                filter: blur(10px);
+            }
+        }
+
+        .blue-fire-effect {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 150px;
+            height: 150px;
+            background: radial-gradient(circle, rgb(23, 0, 155), transparent 70%);
+            border-radius: 50%;
+            filter: blur(10px);
+            opacity: 0;
+            transform: translate(-50%, -50%) scale(0.5);
+            pointer-events: none;
+            /* Empêche toute interaction avec l'effet */
+            z-index: 3;
+            /* Par-dessus tout */
+        }
+
+        @keyframes blue-flame {
+            0% {
+                transform: translate(-50%, -50%) scale(0.5);
+                opacity: 1;
+            }
+
+            100% {
+                transform: translate(-50%, -50%) scale(2);
+                opacity: 0;
+            }
+        }
+
+        .defense-glow {
+            animation: defenseFlash 1s ease-out;
+            border-radius: 10px;
+        }
+
+        @keyframes defenseFlash {
+            0% {
+                box-shadow: 0 0 0 rgba(0, 191, 255, 0);
+            }
+
+            50% {
+                box-shadow: 0 0 30px 20px rgba(0, 255, 255, 0.8);
+            }
+
+            100% {
+                box-shadow: 0 0 0 rgba(0, 191, 255, 0);
+            }
+        }
+
+
+        .attaque-glow {
+            animation: attackFlash 1s ease-out;
+            border-radius: 10px;
+        }
+
+        @keyframes attackFlash {
+            0% {
+                box-shadow: 0 0 0 rgba(0, 191, 255, 0);
+            }
+
+            50% {
+                box-shadow: 0 0 30px 20px rgba(255, 0, 64, 0.867);
+            }
+
+            100% {
+                box-shadow: 0 0 0 rgba(0, 191, 255, 0);
+            }
+        }
+
+        .header_scroll {
+        text-align: center;
+        padding: 20px;
+        background-color: #3c7dd8;
+        margin-bottom: 20px;
+        border-radius: 10px;
+        overflow: hidden;
+    }
+
+    .exit-button {
+        background-color: #f44336; /* Rouge pour le bouton Exit */
+        padding: 5px 10px;
+        border-radius: 5px;
+        font-weight: bold;
+    }
+
+    .exit-button:hover {
+        background-color: #d32f2f; /* Rouge plus foncé au survol */
+    }
     </style>
+
+<script src="https://kit.fontawesome.com/ca00bf51a9.js" crossorigin="anonymous"></script>
 </head>
 
 <body>
@@ -282,8 +456,14 @@
     <audio src="./defense.mp3" id="defense_sound"></audio>
     <audio src="./combat.mp3" id="debut_combat"></audio>
     <div class="container">
-        <header>
-            <h1>Bataille de Superhéros</h1>
+      
+        <header class="header_scroll" style="position: relative;">
+            <h1 class="h1scroll">Bataille de Superhéros</h1>
+            <a href="home.html" class="exit-button" style="position: absolute; top: 10px; right: 10px; text-decoration: none; color: white; display: flex; align-items: center;">
+                <!-- <img src="exit-icon.png" alt="Exit" > -->
+                <i class="fa-solid fa-power-off" style="width: 20px; height: 20px; margin-right: 5px;"></i> <!-- Remplacez par le chemin de votre icône -->
+                
+            </a>
         </header>
 
         <div class="waiting-screen" id="waitingScreen">
@@ -291,12 +471,19 @@
             <p>Un superhéros vous sera attribué lorsqu'un adversaire rejoindra la partie.</p>
         </div>
 
+
         <div class="game-area" id="gameArea" style="display: none;">
+
             <div class="hero-card" id="yourHeroCard">
                 <div class="hero-info">
+
                     <div class="hero-image" id="yourHeroImage">
+
                         <div id="yourHeroPlaceholder">Image non disponible</div>
+
                     </div>
+                    <div class="blue-fire-effect" id="attackEffect"></div>
+
                     <div class="hero-stats" style="width: 100%;">
                         <h3 id="yourHeroName">Nom du héros</h3>
                         <div class="stat-bar health-bar" id="healthid">
@@ -358,6 +545,11 @@
                     </div>
                 </div>
                 <div id="yourRole">Rôle: -</div>
+            </div>
+
+            <!-- Image "VS" entre les deux cartes -->
+            <div class="vs-image fire-effect">
+                <img src="images/Vs1.png" alt="VS" />
             </div>
 
             <div class="hero-card" id="opponentHeroCard">
@@ -433,8 +625,6 @@
             </header> -->
 
             <div class="action-area" style="">
-                <div class="message-log" id="messageLog" style="padding-bottom: 0;"></div>
-
                 <div class="actions">
                     <div class="action-list" id="attacksList">
                         <h3 style="margin-top: 0;">Attaques</h3>
@@ -454,8 +644,12 @@
                         <button id="defense_button" class="action-btn defense-btn">Utiliser la défense</button>
                     </div>
                 </div>
+                <div class="message-log" id="messageLog" style="padding-bottom: 0;"></div>
+
+
             </div>
         </div>
+
 
         <div class="result-screen" id="resultScreen">
             <div id="victoryMessage" class="result-win" style="display: none">
@@ -469,8 +663,6 @@
             <button id="playAgainBtn" style="width: auto; margin-top: 20px;">Rejouer</button>
         </div>
     </div>
-
-
 
     <script src="https://cdn.socket.io/4.6.0/socket.io.min.js"></script>
 
@@ -621,23 +813,35 @@
 
             // Ajouter les événements aux boutons
             attackButton.addEventListener('click', () => {
-                attacksound.play()
+                attacksound.play();
                 const selectedAttack = attackSelect.value;
+
                 if (selectedAttack && selectedAttack !== 'Choisir une attaque') {
                     socket.emit('attack', { attackName: selectedAttack });
                     addMessage(`Vous utilisez ${selectedAttack} !`, 'attack');
 
-                    // Désactiver le bouton et le select après l'avoir utilisé
+                    // Désactiver le bouton et le select après utilisation
                     attackSelect.disabled = true;
                     attackButton.disabled = true;
+
+                    // Déclencher l'effet visuel
+                    // Ajouter l'effet visuel
+                    const opponentCard = document.getElementById('yourHeroCard');
+                    opponentCard.classList.add('attaque-glow');
+                    // Réinitialiser l'effet après animation
+                    setTimeout(() => {
+                        attackEffect.style.animation = '';
+                    }, 800);
                 } else {
                     addMessage('Veuillez choisir une attaque !', 'system');
                 }
             });
 
             defenseButton.addEventListener('click', () => {
+
                 defensesound.play();
                 const selectedDefense = defenseSelect.value;
+
                 if (selectedDefense && selectedDefense !== 'Choisir une défense' && incomingAttack) {
                     socket.emit('defend', {
                         defenseName: selectedDefense,
@@ -646,7 +850,16 @@
 
                     addMessage(`Vous utilisez ${selectedDefense} contre ${incomingAttack.attackName} !`, 'defense');
 
-                    // Désactiver le bouton et le select après l'avoir utilisé
+                    // Ajouter l'effet visuel
+                    const opponentCard = document.getElementById('opponentHeroCard');
+                    opponentCard.classList.add('defense-glow');
+
+                    // Le retirer après 2 secondes
+                    setTimeout(() => {
+                        opponentCard.classList.remove('defense-glow');
+                    }, 2000);
+
+                    // Bloquer les interactions après action
                     defenseSelect.disabled = true;
                     defenseButton.disabled = true;
 
@@ -656,6 +869,8 @@
                     addMessage('Veuillez choisir une défense !', 'system');
                 }
             });
+
+
         }
 
         // Événements socket.io
