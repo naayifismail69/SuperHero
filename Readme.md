@@ -2,7 +2,7 @@
 
 Bienvenue dans le projet **SuperHero** ! Ce projet est un jeu de combat des super heros.
 
-![Apperçu](images/game.png.png)
+![Apperçu](images/game.png)
 
 
 ## Installation
