@@ -1,12 +1,9 @@
 # SuperHero
 
-Bienvenue dans le projet **SuperHero** ! Ce projet est conçu pour explorer et gérer des informations sur des super-héros.
+Bienvenue dans le projet **SuperHero** ! Ce projet est un jeu de combat des super heros.
 
-## Fonctionnalités
+![Apperçu](images/game.png.png)
 
-- Recherche de super-héros par nom.
-- Affichage des détails d'un super-héros (pouvoirs, origine, etc.).
-- Gestion et ajout de nouveaux super-héros.
 
 ## Installation
 
@@ -31,7 +28,7 @@ Bienvenue dans le projet **SuperHero** ! Ce projet est conçu pour explorer et g
     ```
 2. Ouvrez votre navigateur et accédez à `http://localhost:3000`.(Optionnel)
 
-3. Ouvrez le fichier home.html
+3. Ouvrez le fichier home.html dans 2 onglets differents et commencer par jouer. 
 
 ## Contribution
 
